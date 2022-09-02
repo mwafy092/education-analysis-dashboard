@@ -3,3 +3,10 @@ body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
 }
+
+/*
+    CSS FOR CONTAINER
+*/
+.container {
+    padding: 0 20px;
+}

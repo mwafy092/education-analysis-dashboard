@@ -1,7 +1,11 @@
 import React from 'react';
-
+import { Header } from './components/Header';
 const App = () => {
-    return <div>Education Analysis Dashboard</div>;
+    return (
+        <main className='container'>
+            <Header />
+        </main>
+    );
 };
 
 export default App;
