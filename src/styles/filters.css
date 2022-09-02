@@ -1,0 +1,36 @@
+.filters__container {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter label {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #666;
+}
+
+.filter select {
+    background-color: #8dd0fa;
+    border: 1px solid #54b1df;
+    color: #6bb1dd;
+    width: 200px;
+    height: 30px;
+    padding: 0 10px;
+    cursor: pointer;
+    padding-right: 10px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-image: url('../assets/arrow-down.png');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
+    background-size: 10px;
+}
