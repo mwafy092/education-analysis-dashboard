@@ -1,0 +1,66 @@
+.chart__data__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 40px 60px;
+}
+.total__schools__data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.total__schools__data h2 {
+    margin: 0;
+    color: #777;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.total__schools__data p {
+    margin: 0;
+    color: #777;
+    font-size: 0.8rem;
+}
+
+.schools__data__container {
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.school__data {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.school__info {
+    display: flex;
+    flex-direction: column;
+}
+
+.school__info h3 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 1rem;
+}
+.school__info p {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.lesson__num {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.total__lessons__num {
+    font-weight: 600;
+    font-size: 1.4rem;
+}
