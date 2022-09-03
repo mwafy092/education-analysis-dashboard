@@ -63,9 +63,27 @@ const ChartData: FC = () => {
             (ld: any) =>
                 ld.school === item && ld.country === country && ld.camp === camp
         );
-        let chartData: any = [];
-        data.forEach((dataItem: any) => chartData.push({ ...dataItem, color }));
-        dispatch(setSelectedSchoolData(chartData));
+        let months = [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec',
+        ];
+        data.sort((a: any, b: any) => {
+            console.log(a);
+            return months.indexOf(a.month) - months.indexOf(b.month);
+        });
+        const chartDataSet: any = [];
+        data.forEach((item: any) => chartDataSet.push({ ...item, color }));
+        dispatch(setSelectedSchoolData(chartDataSet));
     };
 
     // useEffect for running functions
