@@ -1,13 +1,15 @@
 import React, { FC, useEffect, useState } from 'react';
 import '../styles/chart-data.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSelectedSchoolData } from '../reducers/lessons';
+
 const ChartData: FC = () => {
     const [totalLessons, setTotalLessons] = useState<number>(0);
     const [schoolsData, setSchoolsData] = useState<any>([]);
-    const { lessonsData, country, camp, school } = useSelector(
+    const dispatch = useDispatch();
+    const { lessonsData, country, camp, school, chartData } = useSelector(
         (store: any) => store.lessons
     );
-
     // get total lessons for each camp
     const getTotalLessonsForCamp = (
         data: any,
@@ -56,6 +58,16 @@ const ChartData: FC = () => {
         }
     };
 
+    const handleRadioButton = (item: any, color: string) => {
+        let data = lessonsData.filter(
+            (ld: any) =>
+                ld.school === item && ld.country === country && ld.camp === camp
+        );
+        let chartData: any = [];
+        data.forEach((dataItem: any) => chartData.push({ ...dataItem, color }));
+        dispatch(setSelectedSchoolData(chartData));
+    };
+
     // useEffect for running functions
     useEffect(() => {
         getTotalLessonsForCamp(lessonsData, country, camp);
@@ -63,6 +75,9 @@ const ChartData: FC = () => {
     useEffect(() => {
         getLessonsPerSchool(lessonsData, country, camp, school);
     }, [lessonsData, country, camp, school]);
+
+    // colors array
+    const chartColors = ['orange', 'purple', 'skyblue', 'red'];
     return (
         <div className='chart__data__container'>
             <div className='total__schools__data'>
@@ -73,12 +88,18 @@ const ChartData: FC = () => {
                 <p>in {camp}</p>
             </div>
             <div className='schools__data__container'>
-                {Object.keys(schoolsData).map((item: any) => (
+                {Object.keys(schoolsData).map((item: any, index: number) => (
                     <div
                         className='school__data'
                         key={item}
+                        style={{ color: `${chartColors[index]}` }}
                     >
-                        <input type='radio' />
+                        <input
+                            type='radio'
+                            onClick={() => {
+                                handleRadioButton(item, chartColors[index]);
+                            }}
+                        />
                         <div className='school__info'>
                             <h3>
                                 <span className='lesson__num'>

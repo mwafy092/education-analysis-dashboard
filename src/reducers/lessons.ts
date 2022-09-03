@@ -15,6 +15,7 @@ type InitialStateType = {
     country: string;
     camp: string;
     school: string;
+    chartData: [];
 };
 
 const initialState: InitialStateType = {
@@ -23,6 +24,7 @@ const initialState: InitialStateType = {
     country: '',
     camp: '',
     school: '',
+    chartData: [],
 };
 
 // thunk configuration
@@ -44,6 +46,9 @@ const lessonsSlice = createSlice({
             state.camp = action.payload.selectedCamp;
             state.school = action.payload.selectedSchool;
         },
+        setSelectedSchoolData: (state: any, action: any) => {
+            state.chartData = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getLessonsData.pending, (state: any) => {
@@ -62,6 +67,6 @@ const lessonsSlice = createSlice({
     },
 });
 
-export const { setLocationData } = lessonsSlice.actions;
+export const { setLocationData, setSelectedSchoolData } = lessonsSlice.actions;
 
 export default lessonsSlice.reducer;
