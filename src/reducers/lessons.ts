@@ -46,7 +46,7 @@ const lessonsSlice = createSlice({
             state.camp = action.payload.selectedCamp;
             state.school = action.payload.selectedSchool;
         },
-        setSelectedSchoolData: (state: any, action: any) => {
+        addDataToChart: (state: any, action: any) => {
             state.chartData.push(action.payload);
         },
     },
@@ -67,6 +67,6 @@ const lessonsSlice = createSlice({
     },
 });
 
-export const { setLocationData, setSelectedSchoolData } = lessonsSlice.actions;
+export const { setLocationData, addDataToChart } = lessonsSlice.actions;
 
 export default lessonsSlice.reducer;

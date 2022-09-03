@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import '../styles/chart-data.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedSchoolData } from '../reducers/lessons';
+import { addDataToChart } from '../reducers/lessons';
 
 const ChartData: FC = () => {
     const [totalLessons, setTotalLessons] = useState<number>(0);
     const [schoolsData, setSchoolsData] = useState<any>([]);
     const dispatch = useDispatch();
-    const { lessonsData, country, camp, school, chartData } = useSelector(
+    const { lessonsData, country, camp, school } = useSelector(
         (store: any) => store.lessons
     );
     // get total lessons for each camp
@@ -83,7 +83,7 @@ const ChartData: FC = () => {
         });
         const chartDataSet: any = [];
         data.forEach((item: any) => chartDataSet.push({ ...item, color }));
-        dispatch(setSelectedSchoolData(chartDataSet));
+        dispatch(addDataToChart(chartDataSet));
     };
 
     // useEffect for running functions
