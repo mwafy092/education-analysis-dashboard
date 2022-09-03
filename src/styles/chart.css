@@ -1,0 +1,12 @@
+.chart__container {
+    padding: 30px 10px;
+    border-right: 2px solid #ddd;
+}
+.chart__container h3 {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #777;
+}
+.chart__container .chart {
+    padding: 0 20px;
+}
