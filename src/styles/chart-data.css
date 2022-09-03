@@ -3,12 +3,13 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 40px 60px;
+    max-height: 600px;
 }
 .total__schools__data {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    padding: 40px 40px 0;
 }
 
 .total__schools__data h2 {
@@ -28,8 +29,10 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
+    overflow-y: auto;
+    padding: 10px 60px;
 }
 
 .school__data {

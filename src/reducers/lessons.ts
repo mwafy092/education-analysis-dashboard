@@ -40,7 +40,9 @@ const lessonsSlice = createSlice({
     initialState,
     reducers: {
         setLocationData: (state: any, action: any) => {
-            console.log(action);
+            state.country = action.payload.selectedCountry;
+            state.camp = action.payload.selectedCamp;
+            state.school = action.payload.selectedSchool;
         },
     },
     extraReducers: (builder) => {
