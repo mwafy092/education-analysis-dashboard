@@ -3,8 +3,8 @@ import { Dashboard } from './components/Dashboard';
 import { Filters } from './components/Filters';
 import { Header } from './components/Header';
 import { getLessonsData } from './reducers/lessons';
-import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
-import { AppDispatch, RootState } from './store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from './store';
 
 const App = () => {
     const dispatch = useDispatch<AppDispatch>();
