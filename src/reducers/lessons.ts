@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-type Lessons = {
+export type Lessons = {
     id: string;
     month: string;
     camp: string;
@@ -12,11 +12,17 @@ type Lessons = {
 type InitialStateType = {
     lessonsData: Lessons[];
     isLoading: false | true;
+    country: string;
+    camp: string;
+    school: string;
 };
 
 const initialState: InitialStateType = {
     lessonsData: [],
     isLoading: true,
+    country: '',
+    camp: '',
+    school: '',
 };
 
 // thunk configuration
@@ -32,7 +38,11 @@ export const getLessonsData = createAsyncThunk('lessons/getLessonsData', () => {
 const lessonsSlice = createSlice({
     name: 'lessons',
     initialState,
-    reducers: {},
+    reducers: {
+        setLocationData: (state: any, action: any) => {
+            console.log(action);
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getLessonsData.pending, (state: any) => {
             state.isLoading = true;
@@ -49,5 +59,7 @@ const lessonsSlice = createSlice({
         });
     },
 });
+
+export const { setLocationData } = lessonsSlice.actions;
 
 export default lessonsSlice.reducer;

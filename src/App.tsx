@@ -11,8 +11,7 @@ const App = () => {
     useEffect(() => {
         dispatch(getLessonsData());
     }, []);
-    const store = useSelector((state) => state);
-    console.log(store);
+
     return (
         <main className='container'>
             <Header />
