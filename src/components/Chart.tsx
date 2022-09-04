@@ -3,7 +3,9 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import '../styles/chart.css';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const Chart: FC = () => {
+    const navigate = useNavigate();
     const [colors, setColors] = useState<any>({});
     const [lineChartData, setLineChartData] = useState<any>([]);
     const { chartData, lessonsData, country, camp } = useSelector(
@@ -108,6 +110,13 @@ const Chart: FC = () => {
                         ),
                     }}
                     options={{
+                        onClick: (evt, activeElement: any) => {
+                            let pointData =
+                                activeElement[0].element?.$context.raw;
+                            navigate('/details', {
+                                state: pointData,
+                            });
+                        },
                         plugins: {
                             legend: {
                                 display: false,
