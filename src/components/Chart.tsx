@@ -6,11 +6,12 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 const Chart: FC = () => {
     const navigate = useNavigate();
-    const [colors, setColors] = useState<any>({});
+    const [colors, setColors] = useState([]);
     const [lineChartData, setLineChartData] = useState<any>([]);
     const { chartData, lessonsData, country, camp } = useSelector(
         (state: any) => state.lessons
     );
+    console.log(colors);
     const months = [
         'Jan',
         'Feb',

@@ -53,7 +53,7 @@ const Filters: FC = () => {
     useEffect(() => {
         let fetchedCamps = getCampsBasedOnCountry(
             lessonsData,
-            selectedCountry || savedData.country
+            selectedCountry || savedData?.country
         );
         setCamps(fetchedCamps);
     }, [lessonsData, selectedCountry, savedData]);
@@ -61,13 +61,13 @@ const Filters: FC = () => {
     useEffect(() => {
         let fetchedSchools = getSchoolsBasedOnCamp(
             lessonsData,
-            selectedCamp || savedData.camp,
-            selectedCountry || savedData.country
+            selectedCamp || savedData?.camp,
+            selectedCountry || savedData?.country
         );
         setSchools(fetchedSchools);
-        const countryItem = selectedCountry || savedData.country;
-        const campItem = selectedCamp || savedData.camp;
-        const schoolItem = selectedSchool || savedData.school;
+        const countryItem = selectedCountry || savedData?.country;
+        const campItem = selectedCamp || savedData?.camp;
+        const schoolItem = selectedSchool || savedData?.school;
         dispatch(
             setLocationDataAction({
                 countryItem,
@@ -104,13 +104,13 @@ const Filters: FC = () => {
                 >
                     <option value='null'>Select Country</option>
                     {countries?.map((country: string) => {
-                        if (country === savedData.country) {
+                        if (country === savedData?.country) {
                             return (
                                 <option
-                                    value={savedData.country}
+                                    value={savedData?.country}
                                     selected
                                 >
-                                    {savedData.country}
+                                    {savedData?.country}
                                 </option>
                             );
                         } else {
@@ -137,13 +137,13 @@ const Filters: FC = () => {
                 >
                     <option value={'null'}>Select Camp</option>
                     {camps?.map((camp: string) => {
-                        if (camp === savedData.camp) {
+                        if (camp === savedData?.camp) {
                             return (
                                 <option
-                                    value={savedData.camp}
+                                    value={savedData?.camp}
                                     selected
                                 >
-                                    {savedData.camp}
+                                    {savedData?.camp}
                                 </option>
                             );
                         } else {
@@ -170,13 +170,13 @@ const Filters: FC = () => {
                 >
                     <option>Select School</option>
                     {schools?.map((school: string) => {
-                        if (school === savedData.school) {
+                        if (school === savedData?.school) {
                             return (
                                 <option
-                                    value={savedData.school}
+                                    value={savedData?.school}
                                     selected
                                 >
-                                    {savedData.school}
+                                    {savedData?.school}
                                 </option>
                             );
                         } else {
