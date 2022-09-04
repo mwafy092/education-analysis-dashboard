@@ -4,14 +4,15 @@ import 'chart.js/auto';
 import '../styles/chart.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Lessons, StateTypes } from '../reducers/types';
 const Chart: FC = () => {
     const navigate = useNavigate();
-    const [colors, setColors] = useState([]);
-    const [lineChartData, setLineChartData] = useState<any>([]);
+    const [colors, setColors] = useState<any>({});
+    const [lineChartData, setLineChartData] = useState<Lessons[]>([]);
     const { chartData, lessonsData, country, camp } = useSelector(
-        (state: any) => state.lessons
+        (state: StateTypes) => state.lessons
     );
-    console.log(colors);
+
     const months = [
         'Jan',
         'Feb',
@@ -28,7 +29,7 @@ const Chart: FC = () => {
     ];
     const getSchoolsDataSelector = () => {
         const schoolsPerCamp = lessonsData.filter(
-            (lData: any) => lData.country === country && lData.camp === camp
+            (lData: Lessons) => lData.country === country && lData.camp === camp
         );
 
         let months = [
@@ -45,12 +46,12 @@ const Chart: FC = () => {
             'Nov',
             'Dec',
         ];
-        schoolsPerCamp.sort((a: any, b: any) => {
+        schoolsPerCamp.sort((a: Lessons, b: Lessons) => {
             return months.indexOf(a.month) - months.indexOf(b.month);
         });
-        const chartDataSet: any = [];
+        const chartDataSet: Lessons[] = [];
         schoolsPerCamp.forEach((item: any) => chartDataSet.push({ ...item }));
-        function splitArray(arr: any, property: any) {
+        function splitArray(arr: Lessons[], property: string) {
             return arr.reduce(function (memo: any, x: any) {
                 if (!memo[x[property]]) {
                     memo[x[property]] = [];
@@ -61,7 +62,7 @@ const Chart: FC = () => {
             }, {});
         }
         let sectionedData = splitArray(chartDataSet, 'school');
-        let __CHART__DATA: any = [];
+        let __CHART__DATA: Lessons[] = [];
         for (let i of chartData) {
             let key = Object.keys(i)[0];
 
@@ -88,6 +89,7 @@ const Chart: FC = () => {
             <h3>No of lessons</h3>
             <div className='chart'>
                 <Line
+                    role='linechart'
                     data={{
                         labels: months,
                         datasets: lineChartData?.map(

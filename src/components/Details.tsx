@@ -5,7 +5,12 @@ const Details: FC = () => {
     const { state }: any = useLocation();
     return (
         <div className='details__data__container'>
-            <Link to='/'>Go Back To Home Page</Link>
+            <Link
+                to='/'
+                role='link'
+            >
+                Go Back To Home Page
+            </Link>
             <div className='details__data'>
                 <h2>Country</h2>
                 <h3>{state?.country}</h3>
@@ -22,7 +27,10 @@ const Details: FC = () => {
                 <h2>Month</h2>
                 <h3>{state?.month}</h3>
             </div>
-            <div className='details__data'>
+            <div
+                className='details__data'
+                role='detailsrole'
+            >
                 <h2>Number of Lessons</h2>
                 <h3>{state?.lessons}</h3>
             </div>

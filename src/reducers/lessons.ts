@@ -9,7 +9,7 @@ export type Lessons = {
     lessons: number;
 };
 
-type InitialStateType = {
+export type InitialStateType = {
     lessonsData: Lessons[];
     isLoading: false | true;
     country: string;

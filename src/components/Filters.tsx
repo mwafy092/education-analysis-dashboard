@@ -3,44 +3,48 @@ import '../styles/filters.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setLocationDataAction } from '../reducers/lessons';
+import { StateTypes, Lessons } from '../reducers/types';
 const Filters: FC = () => {
     const dispatch = useDispatch();
-    const [countries, setCountries] = useState<any>([]);
-    const [camps, setCamps] = useState<any>([]);
-    const [schools, setSchools] = useState<any>([]);
+    const [countries, setCountries] = useState<string[]>([]);
+    const [camps, setCamps] = useState<string[]>([]);
+    const [schools, setSchools] = useState<string[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<string>('');
     const [selectedCamp, setSelectedCamp] = useState<string>('');
     const [selectedSchool, setSelectedSchool] = useState<string>('');
     const [savedData, setSavedData] = useState<any>({});
     const { lessonsData, country, camp, school } = useSelector(
-        (store: { lessons: any }) => store.lessons
+        (store: StateTypes) => store.lessons
     );
-
     // Selectors to select data from the store
-    const getCountries = (data: []) => {
-        let newDataArray = data.map((item: any) => item.country);
+    const getCountries = (data: Lessons[]) => {
+        let newDataArray = data.map((item: Lessons) => item.country);
         let dataSet = new Set(newDataArray);
         return Array.from(dataSet);
     };
 
-    const getCampsBasedOnCountry = (data: any, country: string) => {
-        let campData: any = [];
-        let campsArray = data.filter((item: any) => item.country === country);
-        campsArray.forEach((camp: any) => campData.push(camp.camp));
+    const getCampsBasedOnCountry = (data: Lessons[], country: string) => {
+        let campData: string[] = [];
+        let campsArray = data.filter(
+            (item: Lessons) => item.country === country
+        );
+        campsArray.forEach((camp: Lessons) => campData.push(camp.camp));
         const campDataSet = new Set(campData);
         return Array.from(campDataSet);
     };
 
     const getSchoolsBasedOnCamp = (
-        data: any,
+        data: Lessons[],
         camp: string,
         country: string
     ) => {
-        const schoolData: any = ['Show All'];
+        const schoolData: string[] = ['Show All'];
         let schoolsData = data.filter(
-            (item: any) => item.camp === camp && item.country === country
+            (item: Lessons) => item.camp === camp && item.country === country
         );
-        schoolsData.forEach((school: any) => schoolData.push(school.school));
+        schoolsData.forEach((school: Lessons) =>
+            schoolData.push(school.school)
+        );
         const schoolDataSet = new Set(schoolData);
         return Array.from(schoolDataSet);
     };
@@ -98,6 +102,7 @@ const Filters: FC = () => {
                 <label htmlFor='country'>Select Country</label>
                 <select
                     id='country'
+                    role='countryonchange'
                     onChange={(e) => {
                         setSelectedCountry(e.target.value);
                     }}

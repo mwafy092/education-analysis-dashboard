@@ -3,27 +3,28 @@ import '../styles/chart-data.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { addDataToChartAction } from '../reducers/lessons';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+import { Lessons, StateTypes, lessonsDataTypes } from '../reducers/types';
 
 const ChartData: FC = () => {
     const [colors, setColors] = useState<any>({});
     const [totalLessons, setTotalLessons] = useState<number>(0);
     const [schoolsData, setSchoolsData] = useState<any>([]);
-    const [selectedInput, setSelectedInput] = useState<any>([]);
+    const [selectedInput, setSelectedInput] = useState<string[]>([]);
     const dispatch = useDispatch();
     const { lessonsData, country, camp, school, chartData } = useSelector(
-        (store: any) => store.lessons
+        (store: StateTypes) => store.lessons
     );
     // get total lessons for each camp
     const getTotalLessonsForCamp = (
-        data: any,
+        data: Lessons[],
         country: string,
         camp: string
     ) => {
         let totalLessons = 0;
         let lessonsDataArray = data.filter(
-            (item: any) => item.country === country && item.camp === camp
+            (item: Lessons) => item.country === country && item.camp === camp
         );
-        lessonsDataArray.forEach((lesson: any) => {
+        lessonsDataArray.forEach((lesson: Lessons) => {
             totalLessons += lesson.lessons;
         });
         setTotalLessons(totalLessons);
@@ -31,20 +32,22 @@ const ChartData: FC = () => {
 
     // get computed lessons for each school
     const getLessonsPerSchool = (
-        data: any,
+        data: Lessons[],
         country: string,
         camp: string,
         school: string
     ) => {
         let schoolsArray = data.filter(
-            (item: any) => item.country === country && item.camp === camp
+            (item: Lessons) => item.country === country && item.camp === camp
         );
-        let lessonsData: any = [];
-        schoolsArray.forEach((sc: any) => {
+
+        let lessonsData: lessonsDataTypes[] = [];
+        schoolsArray.forEach((sc: Lessons) => {
             lessonsData.push({ school: sc.school, lessons: sc.lessons });
         });
+
         let computedLessonsData: any = {};
-        lessonsData.forEach((ld: any) => {
+        lessonsData.forEach((ld: lessonsDataTypes) => {
             if (ld.school in computedLessonsData) {
                 computedLessonsData[`${ld.school}`] += ld.lessons;
             } else {
@@ -61,7 +64,7 @@ const ChartData: FC = () => {
         }
     };
 
-    const handleRadioButton = (item: any) => {
+    const handleRadioButton = (item: string) => {
         if (selectedInput.includes(item)) {
             let index = selectedInput.indexOf(item);
             let arrayCopy = [...selectedInput];
@@ -120,7 +123,7 @@ const ChartData: FC = () => {
             </div>
 
             <div className='schools__data__container'>
-                {Object.keys(schoolsData).map((item: any, index: number) => (
+                {Object.keys(schoolsData).map((item: string, index: number) => (
                     <div
                         className='school__data'
                         key={item}
