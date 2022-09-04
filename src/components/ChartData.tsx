@@ -98,6 +98,15 @@ const ChartData: FC = () => {
         setColors(colorsObject);
     }, [chartData]);
 
+    if (!camp) {
+        return (
+            <div className='chart__data__container'>
+                <div className='schools__data__container'>
+                    <p className='empty__state'>No Data To Display</p>
+                </div>
+            </div>
+        );
+    }
     return (
         <div className='chart__data__container'>
             <div className='total__schools__data'>
