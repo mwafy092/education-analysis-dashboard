@@ -27,7 +27,7 @@ const Chart: FC = () => {
         'Nov',
         'Dec',
     ];
-    const getSchoolsDataSelector = () => {
+    const getSchoolsDataSelector = (): Lessons[] => {
         const schoolsPerCamp = lessonsData.filter(
             (lData: Lessons) => lData.country === country && lData.camp === camp
         );
@@ -50,7 +50,9 @@ const Chart: FC = () => {
             return months.indexOf(a.month) - months.indexOf(b.month);
         });
         const chartDataSet: Lessons[] = [];
-        schoolsPerCamp.forEach((item: any) => chartDataSet.push({ ...item }));
+        schoolsPerCamp.forEach((item: Lessons) =>
+            chartDataSet.push({ ...item })
+        );
         function splitArray(arr: Lessons[], property: string) {
             return arr.reduce(function (memo: any, x: any) {
                 if (!memo[x[property]]) {

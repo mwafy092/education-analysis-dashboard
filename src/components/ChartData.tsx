@@ -71,7 +71,10 @@ const ChartData: FC = () => {
             arrayCopy.splice(index, 1);
             setSelectedInput(arrayCopy);
         } else {
-            setSelectedInput((prevState: any) => [...prevState, item]);
+            setSelectedInput((prevState: typeof selectedInput) => [
+                ...prevState,
+                item,
+            ]);
         }
     };
 
