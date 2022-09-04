@@ -11,7 +11,8 @@ const Filters: FC = () => {
     const [selectedCountry, setSelectedCountry] = useState<string>('');
     const [selectedCamp, setSelectedCamp] = useState<string>('');
     const [selectedSchool, setSelectedSchool] = useState<string>('');
-    const { lessonsData } = useSelector(
+    const [savedData, setSavedData] = useState<any>({});
+    const { lessonsData, country, camp, school } = useSelector(
         (store: { lessons: any }) => store.lessons
     );
 
@@ -50,27 +51,47 @@ const Filters: FC = () => {
         setCountries(fetchedCountries);
     }, [lessonsData]);
     useEffect(() => {
-        let fetchedCamps = getCampsBasedOnCountry(lessonsData, selectedCountry);
+        let fetchedCamps = getCampsBasedOnCountry(
+            lessonsData,
+            selectedCountry || savedData.country
+        );
         setCamps(fetchedCamps);
-    }, [lessonsData, selectedCountry]);
+    }, [lessonsData, selectedCountry, savedData]);
 
     useEffect(() => {
         let fetchedSchools = getSchoolsBasedOnCamp(
             lessonsData,
-            selectedCamp,
-            selectedCountry
+            selectedCamp || savedData.camp,
+            selectedCountry || savedData.country
         );
         setSchools(fetchedSchools);
+        const countryItem = selectedCountry || savedData.country;
+        const campItem = selectedCamp || savedData.camp;
+        const schoolItem = selectedSchool || savedData.school;
         dispatch(
             setLocationDataAction({
-                selectedCountry,
-                selectedCamp,
-                selectedSchool,
+                countryItem,
+                campItem,
+                schoolItem,
             })
         );
-    }, [lessonsData, selectedCamp, selectedCountry, selectedSchool]);
+    }, [lessonsData, selectedCamp, selectedCountry, selectedSchool, savedData]);
 
-    // return component elements
+    useEffect(() => {
+        if (camp || country || school) {
+            localStorage.setItem(
+                'savedFilteredData',
+                JSON.stringify({ country, camp, school })
+            );
+        }
+    }, [camp, country, school]);
+
+    useEffect(() => {
+        let savedData: any = localStorage?.getItem('savedFilteredData');
+        let parsedData = JSON.parse(savedData);
+        setSavedData(parsedData);
+    }, []);
+
     return (
         <section className='filters__container'>
             <div className='filter'>
@@ -82,14 +103,28 @@ const Filters: FC = () => {
                     }}
                 >
                     <option value='null'>Select Country</option>
-                    {countries?.map((country: string) => (
-                        <option
-                            value={country}
-                            key={country}
-                        >
-                            {country}
-                        </option>
-                    ))}
+                    {countries?.map((country: string) => {
+                        if (country === savedData.country) {
+                            return (
+                                <option
+                                    value={savedData.country}
+                                    selected
+                                >
+                                    {savedData.country}
+                                </option>
+                            );
+                        } else {
+                            return (
+                                <option
+                                    id={country}
+                                    value={country}
+                                    key={country}
+                                >
+                                    {country}
+                                </option>
+                            );
+                        }
+                    })}
                 </select>
             </div>
             <div className='filter'>
@@ -101,14 +136,28 @@ const Filters: FC = () => {
                     }}
                 >
                     <option value={'null'}>Select Camp</option>
-                    {camps.map((camp: string) => (
-                        <option
-                            value={camp}
-                            key={camp}
-                        >
-                            {camp}
-                        </option>
-                    ))}
+                    {camps?.map((camp: string) => {
+                        if (camp === savedData.camp) {
+                            return (
+                                <option
+                                    value={savedData.camp}
+                                    selected
+                                >
+                                    {savedData.camp}
+                                </option>
+                            );
+                        } else {
+                            return (
+                                <option
+                                    id={camp}
+                                    value={camp}
+                                    key={camp}
+                                >
+                                    {camp}
+                                </option>
+                            );
+                        }
+                    })}
                 </select>
             </div>
             <div className='filter'>
@@ -120,14 +169,28 @@ const Filters: FC = () => {
                     }}
                 >
                     <option>Select School</option>
-                    {schools.map((school: string) => (
-                        <option
-                            value={school}
-                            key={school}
-                        >
-                            {school}
-                        </option>
-                    ))}
+                    {schools?.map((school: string) => {
+                        if (school === savedData.school) {
+                            return (
+                                <option
+                                    value={savedData.school}
+                                    selected
+                                >
+                                    {savedData.school}
+                                </option>
+                            );
+                        } else {
+                            return (
+                                <option
+                                    id={school}
+                                    value={school}
+                                    key={school}
+                                >
+                                    {school}
+                                </option>
+                            );
+                        }
+                    })}
                 </select>
             </div>
         </section>

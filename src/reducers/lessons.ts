@@ -42,9 +42,9 @@ const lessonsSlice = createSlice({
     initialState,
     reducers: {
         setLocationDataAction: (state: any, action: any) => {
-            state.country = action.payload.selectedCountry;
-            state.camp = action.payload.selectedCamp;
-            state.school = action.payload.selectedSchool;
+            state.country = action.payload.countryItem;
+            state.camp = action.payload.campItem;
+            state.school = action.payload.schoolItem;
         },
         addDataToChartAction: (state: any, action: any) => {
             state.chartData = action.payload;

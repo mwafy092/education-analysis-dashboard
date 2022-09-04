@@ -52,7 +52,7 @@ const ChartData: FC = () => {
             }
         });
 
-        if (school.toLowerCase() === 'show all') {
+        if (school?.toLowerCase() === 'show all') {
             setSchoolsData(computedLessonsData);
         } else {
             setSchoolsData({
