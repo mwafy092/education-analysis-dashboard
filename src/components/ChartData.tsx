@@ -116,6 +116,7 @@ const ChartData: FC = () => {
                 </h2>
                 <p>in {camp}</p>
             </div>
+
             <div className='schools__data__container'>
                 {Object.keys(schoolsData).map((item: any, index: number) => (
                     <div
@@ -126,22 +127,26 @@ const ChartData: FC = () => {
                             color: colors[item] || 'gray',
                         }}
                     >
-                        <RadioButtonCheckedIcon
-                            style={{ width: '20px', cursor: 'pointer' }}
-                            onClick={(e) => {
-                                handleRadioButton(item);
-                            }}
-                        />
+                        {schoolsData[item] && (
+                            <RadioButtonCheckedIcon
+                                style={{ width: '20px', cursor: 'pointer' }}
+                                onClick={(e) => {
+                                    handleRadioButton(item);
+                                }}
+                            />
+                        )}
 
-                        <div className='school__info'>
-                            <h3>
-                                <span className='lesson__num'>
-                                    {schoolsData[item]}
-                                </span>{' '}
-                                lessons
-                            </h3>
-                            <p>in {item}</p>
-                        </div>
+                        {schoolsData[item] && (
+                            <div className='school__info'>
+                                <h3>
+                                    <span className='lesson__num'>
+                                        {schoolsData[item]}
+                                    </span>{' '}
+                                    lessons
+                                </h3>
+                                <p>in {item}</p>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

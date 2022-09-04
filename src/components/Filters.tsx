@@ -96,7 +96,7 @@ const Filters: FC = () => {
                         setSelectedCamp(e.target.value);
                     }}
                 >
-                    <option>Select Camp</option>
+                    <option value={'null'}>Select Camp</option>
                     {camps.map((camp: string) => (
                         <option
                             value={camp}
