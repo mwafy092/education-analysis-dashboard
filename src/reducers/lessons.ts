@@ -47,7 +47,7 @@ const lessonsSlice = createSlice({
             state.school = action.payload.selectedSchool;
         },
         addDataToChart: (state: any, action: any) => {
-            state.chartData.push(action.payload);
+            state.chartData = action.payload;
         },
     },
     extraReducers: (builder) => {

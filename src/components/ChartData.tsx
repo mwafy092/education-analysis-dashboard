@@ -2,12 +2,15 @@ import React, { FC, useEffect, useState } from 'react';
 import '../styles/chart-data.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { addDataToChart } from '../reducers/lessons';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 const ChartData: FC = () => {
+    const [colors, setColors] = useState<any>({});
     const [totalLessons, setTotalLessons] = useState<number>(0);
     const [schoolsData, setSchoolsData] = useState<any>([]);
+    const [selectedInput, setSelectedInput] = useState<any>([]);
     const dispatch = useDispatch();
-    const { lessonsData, country, camp, school } = useSelector(
+    const { lessonsData, country, camp, school, chartData } = useSelector(
         (store: any) => store.lessons
     );
     // get total lessons for each camp
@@ -58,34 +61,28 @@ const ChartData: FC = () => {
         }
     };
 
-    const handleRadioButton = (item: any, color: string) => {
-        let data = lessonsData.filter(
-            (ld: any) =>
-                ld.school === item && ld.country === country && ld.camp === camp
-        );
-        let months = [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-        ];
-        data.sort((a: any, b: any) => {
-            console.log(a);
-            return months.indexOf(a.month) - months.indexOf(b.month);
-        });
-        const chartDataSet: any = [];
-        data.forEach((item: any) => chartDataSet.push({ ...item, color }));
-        dispatch(addDataToChart(chartDataSet));
+    const handleRadioButton = (item: any) => {
+        if (selectedInput.includes(item)) {
+            let index = selectedInput.indexOf(item);
+            let arrayCopy = [...selectedInput];
+            arrayCopy.splice(index, 1);
+            setSelectedInput(arrayCopy);
+        } else {
+            setSelectedInput((prevState: any) => [...prevState, item]);
+        }
     };
 
+    useEffect(() => {
+        setSelectedInput([]);
+    }, [camp]);
+    useEffect(() => {
+        const chartColors = ['orange', 'purple', 'skyblue', 'red'];
+        const chartDataWithColors: any = [];
+        selectedInput.forEach((item: any, index: number) =>
+            chartDataWithColors.push({ [item]: chartColors[index] })
+        );
+        dispatch(addDataToChart(chartDataWithColors));
+    }, [selectedInput, dispatch]);
     // useEffect for running functions
     useEffect(() => {
         getTotalLessonsForCamp(lessonsData, country, camp);
@@ -93,9 +90,14 @@ const ChartData: FC = () => {
     useEffect(() => {
         getLessonsPerSchool(lessonsData, country, camp, school);
     }, [lessonsData, country, camp, school]);
+    useEffect(() => {
+        let colorsObject: any = {};
+        chartData.forEach((color: any) => {
+            colorsObject = { ...colorsObject, ...color };
+        });
+        setColors(colorsObject);
+    }, [chartData]);
 
-    // colors array
-    const chartColors = ['orange', 'purple', 'skyblue', 'red'];
     return (
         <div className='chart__data__container'>
             <div className='total__schools__data'>
@@ -110,14 +112,18 @@ const ChartData: FC = () => {
                     <div
                         className='school__data'
                         key={item}
-                        style={{ color: `${chartColors[index]}` }}
+                        id={item}
+                        style={{
+                            color: colors[item] || 'gray',
+                        }}
                     >
-                        <input
-                            type='radio'
-                            onClick={() => {
-                                handleRadioButton(item, chartColors[index]);
+                        <RadioButtonCheckedIcon
+                            style={{ width: '20px', cursor: 'pointer' }}
+                            onClick={(e) => {
+                                handleRadioButton(item);
                             }}
                         />
+
                         <div className='school__info'>
                             <h3>
                                 <span className='lesson__num'>
