@@ -5,8 +5,10 @@ import { Header } from './components/Header';
 import { getLessonsData } from './reducers/lessons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from './store';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Details } from './components/Details';
+import ClipLoader from 'react-spinners/ClipLoader';
+
 const Home = () => {
     return (
         <>
@@ -17,6 +19,7 @@ const Home = () => {
     );
 };
 const App = () => {
+    const { isLoading } = useSelector((state: any) => state.lessons);
     const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
         dispatch(getLessonsData());
@@ -24,6 +27,15 @@ const App = () => {
 
     return (
         <main className='container'>
+            {isLoading && (
+                <div className='loading__container'>
+                    <ClipLoader
+                        loading={isLoading}
+                        color='purple'
+                        size={70}
+                    />
+                </div>
+            )}
             <Routes>
                 <Route
                     path='/'
