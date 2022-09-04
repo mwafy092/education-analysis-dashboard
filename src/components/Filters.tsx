@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import '../styles/filters.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setLocationData } from '../reducers/lessons';
+import { setLocationDataAction } from '../reducers/lessons';
 const Filters: FC = () => {
     const dispatch = useDispatch();
     const [countries, setCountries] = useState<any>([]);
@@ -62,7 +62,11 @@ const Filters: FC = () => {
         );
         setSchools(fetchedSchools);
         dispatch(
-            setLocationData({ selectedCountry, selectedCamp, selectedSchool })
+            setLocationDataAction({
+                selectedCountry,
+                selectedCamp,
+                selectedSchool,
+            })
         );
     }, [lessonsData, selectedCamp, selectedCountry, selectedSchool]);
 

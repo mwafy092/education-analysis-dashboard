@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import '../styles/chart-data.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addDataToChart } from '../reducers/lessons';
+import { addDataToChartAction } from '../reducers/lessons';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 const ChartData: FC = () => {
@@ -81,7 +81,7 @@ const ChartData: FC = () => {
         selectedInput.forEach((item: any, index: number) =>
             chartDataWithColors.push({ [item]: chartColors[index] })
         );
-        dispatch(addDataToChart(chartDataWithColors));
+        dispatch(addDataToChartAction(chartDataWithColors));
     }, [selectedInput, dispatch]);
     // useEffect for running functions
     useEffect(() => {
@@ -111,10 +111,12 @@ const ChartData: FC = () => {
         <div className='chart__data__container'>
             <div className='total__schools__data'>
                 <h2>
-                    <span className='total__lessons__num'>{totalLessons}</span>{' '}
+                    <span className='total__lessons__num'>
+                        {totalLessons ? totalLessons : 'No'}
+                    </span>{' '}
                     lessons
                 </h2>
-                <p>in {camp}</p>
+                {camp !== 'null' && <p>in {camp}</p>}
             </div>
 
             <div className='schools__data__container'>
