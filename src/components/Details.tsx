@@ -3,7 +3,6 @@ import { useLocation, Link } from 'react-router-dom';
 import '../styles/details.css';
 const Details: FC = () => {
     const { state }: any = useLocation();
-    console.log(state);
     return (
         <div className='details__data__container'>
             <Link to='/'>Go Back To Home Page</Link>
