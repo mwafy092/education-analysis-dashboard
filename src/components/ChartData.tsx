@@ -10,6 +10,7 @@ const ChartData: FC = () => {
     const [totalLessons, setTotalLessons] = useState<number>(0);
     const [schoolsData, setSchoolsData] = useState<any>([]);
     const [selectedInput, setSelectedInput] = useState<string[]>([]);
+    const [topSchool, setTopSchool] = useState<any>({});
     const dispatch = useDispatch();
     const { country, camp, school, chartData, educationData } = useSelector(
         (store: StateTypes) => store.lessons
@@ -32,6 +33,18 @@ const ChartData: FC = () => {
     useEffect(() => {
         setSelectedInput([]);
     }, [camp]);
+
+    useEffect(() => {
+        let topSchoolByLessons = { lessons: 0, school: '' };
+        for (let item of Object.keys(schoolsData)) {
+            topSchoolByLessons =
+                topSchoolByLessons.lessons < schoolsData[item]
+                    ? { lessons: schoolsData[item], school: item }
+                    : topSchoolByLessons;
+        }
+        setSelectedInput([topSchoolByLessons.school]);
+        setTopSchool(topSchoolByLessons);
+    }, [schoolsData]);
 
     useEffect(() => {
         const chartColors = ['orange', 'purple', 'skyblue', 'red'];
@@ -101,6 +114,21 @@ const ChartData: FC = () => {
     }
     return (
         <div className='chart__data__container'>
+            {totalLessons ? (
+                <div className='top__school__label'>
+                    {Object.keys(schoolsData).length > 1 ? (
+                        <div>
+                            <span>{topSchool.school}</span> is the top school
+                            with total <span>{topSchool.lessons}</span> lessons
+                        </div>
+                    ) : (
+                        <div>
+                            <span>{topSchool.school}</span> has{' '}
+                            <span>{topSchool.lessons}</span> lessons
+                        </div>
+                    )}
+                </div>
+            ) : null}
             {totalLessons ? (
                 <div className='total__schools__data'>
                     <h2>

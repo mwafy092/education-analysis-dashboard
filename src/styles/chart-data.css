@@ -4,6 +4,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     max-height: 600px;
+    position: relative;
 }
 .total__schools__data {
     display: flex;
@@ -71,4 +72,22 @@
 .empty__state {
     color: #8dd0fa;
     font-weight: 500;
+}
+
+.top__school__label {
+    font-size: 13px;
+    color: #fff;
+    background-color: orange;
+    top: -30px;
+    width: 200px;
+    right: -25px;
+    position: absolute;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+        rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.top__school__label span {
+    font-weight: 600;
 }

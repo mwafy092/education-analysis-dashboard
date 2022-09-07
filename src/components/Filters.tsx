@@ -17,6 +17,9 @@ const Filters: FC = () => {
         (store: StateTypes) => store.lessons
     );
 
+    useEffect(() => {
+        setSelectedSchool('Show All');
+    }, []);
     // use effect section for fetching data from store
     useEffect(() => {
         let countries = [];
