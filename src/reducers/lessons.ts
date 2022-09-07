@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-
+import { getSlicedDataForStore } from '../utils/selectors';
 export type Lessons = {
     id: string;
     month: string;
@@ -16,6 +16,7 @@ export type InitialStateType = {
     camp: string;
     school: string;
     chartData: [];
+    educationData: any;
 };
 
 const initialState: InitialStateType = {
@@ -25,6 +26,7 @@ const initialState: InitialStateType = {
     camp: '',
     school: '',
     chartData: [],
+    educationData: {},
 };
 
 // thunk configuration
@@ -57,6 +59,7 @@ const lessonsSlice = createSlice({
         builder.addCase(
             getLessonsData.fulfilled,
             (state: any, action: PayloadAction) => {
+                state.educationData = getSlicedDataForStore(action.payload);
                 state.isLoading = false;
                 state.lessonsData = action.payload;
             }

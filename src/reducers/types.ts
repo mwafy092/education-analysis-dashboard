@@ -13,6 +13,7 @@ export type InitialStateType = {
     camp: string;
     school: string;
     chartData: [];
+    educationData: any;
 };
 
 export type StateTypes = {

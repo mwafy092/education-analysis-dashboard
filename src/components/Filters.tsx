@@ -3,7 +3,7 @@ import '../styles/filters.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setLocationDataAction } from '../reducers/lessons';
-import { StateTypes, Lessons } from '../reducers/types';
+import { StateTypes } from '../reducers/types';
 const Filters: FC = () => {
     const dispatch = useDispatch();
     const [countries, setCountries] = useState<string[]>([]);
@@ -13,62 +13,32 @@ const Filters: FC = () => {
     const [selectedCamp, setSelectedCamp] = useState<string>('');
     const [selectedSchool, setSelectedSchool] = useState<string>('');
     const [savedData, setSavedData] = useState<any>({});
-    const { lessonsData, country, camp, school } = useSelector(
+    const { country, camp, school, educationData } = useSelector(
         (store: StateTypes) => store.lessons
     );
-    // Selectors to select data from the store
-    const getCountries = (data: Lessons[]) => {
-        let newDataArray = data.map((item: Lessons) => item.country);
-        let dataSet = new Set(newDataArray);
-        return Array.from(dataSet);
-    };
-
-    const getCampsBasedOnCountry = (data: Lessons[], country: string) => {
-        let campData: string[] = [];
-        let campsArray = data.filter(
-            (item: Lessons) => item.country === country
-        );
-        campsArray.forEach((camp: Lessons) => campData.push(camp.camp));
-        const campDataSet = new Set(campData);
-        return Array.from(campDataSet);
-    };
-
-    const getSchoolsBasedOnCamp = (
-        data: Lessons[],
-        camp: string,
-        country: string
-    ) => {
-        const schoolData: string[] = ['Show All'];
-        let schoolsData = data.filter(
-            (item: Lessons) => item.camp === camp && item.country === country
-        );
-        schoolsData.forEach((school: Lessons) =>
-            schoolData.push(school.school)
-        );
-        const schoolDataSet = new Set(schoolData);
-        return Array.from(schoolDataSet);
-    };
 
     // use effect section for fetching data from store
     useEffect(() => {
-        let fetchedCountries = getCountries(lessonsData);
-        setCountries(fetchedCountries);
-    }, [lessonsData]);
+        let countries = [];
+        for (let item in educationData) {
+            countries.push(item);
+        }
+        setCountries(countries);
+    }, [educationData]);
     useEffect(() => {
-        let fetchedCamps = getCampsBasedOnCountry(
-            lessonsData,
-            selectedCountry || savedData?.country
-        );
-        setCamps(fetchedCamps);
-    }, [lessonsData, selectedCountry, savedData]);
+        let campsPerCountry =
+            educationData[selectedCountry || savedData.country];
+        setCamps(campsPerCountry && Object.keys(campsPerCountry));
+    }, [educationData, selectedCountry, savedData]);
 
     useEffect(() => {
-        let fetchedSchools = getSchoolsBasedOnCamp(
-            lessonsData,
-            selectedCamp || savedData?.camp,
-            selectedCountry || savedData?.country
+        let schoolsPerCamp =
+            educationData?.[selectedCountry || savedData?.country]?.[
+                selectedCamp || savedData?.camp
+            ];
+        setSchools(
+            schoolsPerCamp && ['Show All', ...Object.keys(schoolsPerCamp)]
         );
-        setSchools(fetchedSchools);
         const countryItem = selectedCountry || savedData?.country;
         const campItem = selectedCamp || savedData?.camp;
         const schoolItem = selectedSchool || savedData?.school;
@@ -79,7 +49,14 @@ const Filters: FC = () => {
                 schoolItem,
             })
         );
-    }, [lessonsData, selectedCamp, selectedCountry, selectedSchool, savedData]);
+    }, [
+        educationData,
+        dispatch,
+        savedData,
+        selectedCamp,
+        selectedCountry,
+        selectedSchool,
+    ]);
 
     useEffect(() => {
         if (camp || country || school) {
@@ -102,7 +79,6 @@ const Filters: FC = () => {
                 <label htmlFor='country'>Select Country</label>
                 <select
                     id='country'
-                    role='countryonchange'
                     onChange={(e) => {
                         setSelectedCountry(e.target.value);
                     }}
