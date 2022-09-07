@@ -20,8 +20,8 @@ export const getSlicedDataForStore = (dataItems: any) => {
 
 export const getSchoolsDataByCountryAndCamp = (
     dataItems: any,
-    country: any,
-    camp: any
+    country?: any,
+    camp?: any
 ) => {
     let filteredData = dataItems?.[country]?.[camp] || {};
     let dataByMonths = Object.values(filteredData);

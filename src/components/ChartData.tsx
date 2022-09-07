@@ -99,15 +99,21 @@ const ChartData: FC = () => {
     }
     return (
         <div className='chart__data__container'>
-            <div className='total__schools__data'>
-                <h2>
-                    <span className='total__lessons__num'>
-                        {totalLessons ? totalLessons : 'No'}
-                    </span>{' '}
-                    lessons
-                </h2>
-                {camp !== 'null' && <p>in {camp}</p>}
-            </div>
+            {totalLessons ? (
+                <div className='total__schools__data'>
+                    <h2>
+                        <span className='total__lessons__num'>
+                            {totalLessons}
+                        </span>{' '}
+                        lessons
+                    </h2>
+                    <p>in {camp}</p>
+                </div>
+            ) : (
+                <div className='total__schools__data'>
+                    <h2>No Data To Show</h2>
+                </div>
+            )}
 
             <div className='schools__data__container'>
                 {Object.keys(schoolsData).map((item: string, index: number) => (
