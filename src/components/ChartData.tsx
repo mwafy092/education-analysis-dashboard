@@ -4,26 +4,59 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addDataToChartAction } from '../reducers/lessons';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import { Lessons, StateTypes, lessonsDataTypes } from '../reducers/types';
-
+import { getSchoolsDataByCountryAndCamp } from '../utils/selectors';
 const ChartData: FC = () => {
     const [colors, setColors] = useState<any>({});
     const [totalLessons, setTotalLessons] = useState<number>(0);
     const [schoolsData, setSchoolsData] = useState<any>([]);
     const [selectedInput, setSelectedInput] = useState<string[]>([]);
     const dispatch = useDispatch();
-    const { totalEducationData, country, camp, school, chartData } =
-        useSelector((store: StateTypes) => store.lessons);
+    const { country, camp, school, chartData, educationData } = useSelector(
+        (store: StateTypes) => store.lessons
+    );
 
-    // get computed lessons for each school
-    const getLessonsPerSchool = (
-        data: Lessons[],
-        country: string,
-        camp: string,
-        school: string
-    ) => {
-        let schoolsArray = data.filter(
-            (item: Lessons) => item.country === country && item.camp === camp
+    const handleRadioButton = (item: string) => {
+        if (selectedInput.includes(item)) {
+            let index = selectedInput.indexOf(item);
+            let arrayCopy = [...selectedInput];
+            arrayCopy.splice(index, 1);
+            setSelectedInput(arrayCopy);
+        } else {
+            setSelectedInput((prevState: typeof selectedInput) => [
+                ...prevState,
+                item,
+            ]);
+        }
+    };
+
+    useEffect(() => {
+        setSelectedInput([]);
+    }, [camp]);
+
+    useEffect(() => {
+        const chartColors = ['orange', 'purple', 'skyblue', 'red'];
+        const chartDataWithColors: any = [];
+        selectedInput.forEach((item: any, index: number) =>
+            chartDataWithColors.push({ [item]: chartColors[index] })
         );
+        dispatch(addDataToChartAction(chartDataWithColors));
+    }, [selectedInput, dispatch]);
+    // useEffect for running functions
+    useEffect(() => {
+        let totalLessons = 0;
+        for (let item of Object.keys(schoolsData)) {
+            totalLessons += schoolsData[item];
+        }
+        setTotalLessons(totalLessons);
+    }, [country, camp, schoolsData]);
+
+    useEffect(() => {
+        let schoolsArray = getSchoolsDataByCountryAndCamp(
+            educationData,
+            country,
+            camp
+        );
+
         let lessonsData: lessonsDataTypes[] = [];
         schoolsArray.forEach((sc: Lessons) => {
             lessonsData.push({ school: sc.school, lessons: sc.lessons });
@@ -45,45 +78,7 @@ const ChartData: FC = () => {
                 [`${school}`]: computedLessonsData[school],
             });
         }
-    };
-
-    const handleRadioButton = (item: string) => {
-        if (selectedInput.includes(item)) {
-            let index = selectedInput.indexOf(item);
-            let arrayCopy = [...selectedInput];
-            arrayCopy.splice(index, 1);
-            setSelectedInput(arrayCopy);
-        } else {
-            setSelectedInput((prevState: typeof selectedInput) => [
-                ...prevState,
-                item,
-            ]);
-        }
-    };
-
-    useEffect(() => {
-        setSelectedInput([]);
-    }, [camp]);
-    useEffect(() => {
-        const chartColors = ['orange', 'purple', 'skyblue', 'red'];
-        const chartDataWithColors: any = [];
-        selectedInput.forEach((item: any, index: number) =>
-            chartDataWithColors.push({ [item]: chartColors[index] })
-        );
-        dispatch(addDataToChartAction(chartDataWithColors));
-    }, [selectedInput, dispatch]);
-    // useEffect for running functions
-    useEffect(() => {
-        let totalLessons = 0;
-        for (let item of Object.keys(schoolsData)) {
-            totalLessons += schoolsData[item];
-        }
-        setTotalLessons(totalLessons);
-    }, [country, camp, schoolsData]);
-
-    useEffect(() => {
-        getLessonsPerSchool(totalEducationData, country, camp, school);
-    }, [totalEducationData, country, camp, school]);
+    }, [educationData, country, camp, school]);
 
     useEffect(() => {
         let colorsObject: any = {};

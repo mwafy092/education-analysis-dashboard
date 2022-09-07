@@ -17,3 +17,18 @@ export const getSlicedDataForStore = (dataItems: any) => {
     });
     return _DATASET;
 };
+
+export const getSchoolsDataByCountryAndCamp = (
+    dataItems: any,
+    country: any,
+    camp: any
+) => {
+    let filteredData = dataItems?.[country]?.[camp] || {};
+    let dataByMonths = Object.values(filteredData);
+    let allData: any = [];
+    for (let item of dataByMonths) {
+        allData.push(...[item && Object.values(item)]);
+    }
+    let _DATASET = [].concat.apply([], allData);
+    return _DATASET;
+};

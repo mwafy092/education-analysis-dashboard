@@ -12,7 +12,6 @@ export type InitialStateType = {
     camp: string;
     school: string;
     chartData: [];
-    totalEducationData: any;
     educationData: any;
 };
 

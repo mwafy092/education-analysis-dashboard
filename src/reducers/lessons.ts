@@ -10,7 +10,6 @@ export type Lessons = {
 };
 
 export type InitialStateType = {
-    totalEducationData: any;
     isLoading: false | true;
     country: string;
     camp: string;
@@ -20,7 +19,6 @@ export type InitialStateType = {
 };
 
 const initialState: InitialStateType = {
-    totalEducationData: [],
     isLoading: true,
     country: '',
     camp: '',
@@ -61,7 +59,6 @@ const lessonsSlice = createSlice({
             (state: any, action: PayloadAction) => {
                 state.educationData = getSlicedDataForStore(action.payload);
                 state.isLoading = false;
-                state.totalEducationData = action.payload;
             }
         );
         builder.addCase(getLessonsData.rejected, (state: any) => {

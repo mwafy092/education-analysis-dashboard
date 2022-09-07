@@ -88,6 +88,7 @@ const Filters: FC = () => {
                         if (country === savedData?.country) {
                             return (
                                 <option
+                                    key={country}
                                     value={savedData?.country}
                                     selected
                                 >
@@ -121,6 +122,7 @@ const Filters: FC = () => {
                         if (camp === savedData?.camp) {
                             return (
                                 <option
+                                    key={camp}
                                     value={savedData?.camp}
                                     selected
                                 >
@@ -154,6 +156,7 @@ const Filters: FC = () => {
                         if (school === savedData?.school) {
                             return (
                                 <option
+                                    key={school}
                                     value={savedData?.school}
                                     selected
                                 >
