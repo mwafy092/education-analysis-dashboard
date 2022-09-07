@@ -5,45 +5,14 @@ import '../styles/chart.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Lessons, StateTypes } from '../reducers/types';
-import { months } from '../utils/tools';
+import { months, sortBasedOnMonth } from '../utils/tools';
 const Chart: FC = () => {
     const navigate = useNavigate();
     const [colors, setColors] = useState<any>({});
     const [lineChartData, setLineChartData] = useState<Lessons[]>([]);
-    const { chartData, lessonsData, country, camp, educationData } =
-        useSelector((state: StateTypes) => state.lessons);
-
-    const getSchoolsDataSelector = (): Lessons[] => {
-        const schoolsPerCamp = lessonsData.filter(
-            (lData: Lessons) => lData.country === country && lData.camp === camp
-        );
-
-        schoolsPerCamp.sort((a: Lessons, b: Lessons) => {
-            return months.indexOf(a.month) - months.indexOf(b.month);
-        });
-        const chartDataSet: Lessons[] = [];
-        schoolsPerCamp.forEach((item: Lessons) =>
-            chartDataSet.push({ ...item })
-        );
-        function splitArray(arr: Lessons[], property: string) {
-            return arr.reduce(function (memo: any, x: any) {
-                if (!memo[x[property]]) {
-                    memo[x[property]] = [];
-                }
-
-                memo[x[property]].push(x);
-                return memo;
-            }, {});
-        }
-        let sectionedData = splitArray(chartDataSet, 'school');
-        let __CHART__DATA: Lessons[] = [];
-        for (let i of chartData) {
-            let key = Object.keys(i)[0];
-
-            __CHART__DATA.push(sectionedData[key]);
-        }
-        return __CHART__DATA;
-    };
+    const { chartData, country, camp, educationData } = useSelector(
+        (state: StateTypes) => state.lessons
+    );
 
     useEffect(() => {
         let colorsObject: any = {};
@@ -54,16 +23,28 @@ const Chart: FC = () => {
     }, [chartData]);
 
     useEffect(() => {
-        getSchoolsDataSelector();
-        setLineChartData(getSchoolsDataSelector());
-    }, [lessonsData, country, camp, chartData]);
+        let sec = educationData[country]?.[camp] || [];
+        let newSectionData: any = {};
+        for (let i of Object.keys(sec)) {
+            newSectionData = {
+                ...newSectionData,
+                [`${i}`]: sortBasedOnMonth(Object.values(sec[i])),
+            };
+        }
+        let _CHART_DATA: Lessons[] = [];
+        for (let i of chartData) {
+            let key = Object.keys(i)[0];
+
+            _CHART_DATA.push(newSectionData[key]);
+        }
+        setLineChartData(_CHART_DATA);
+    }, [camp, chartData, country, educationData]);
 
     return (
         <div className='chart__container'>
             <h3>No of lessons</h3>
             <div className='chart'>
                 <Line
-                    role='linechart'
                     data={{
                         labels: months,
                         datasets: lineChartData?.map(
