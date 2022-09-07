@@ -56,14 +56,14 @@ const Chart: FC = () => {
                                         label: data[0]?.school,
                                         data: data,
                                         borderColor: colors[data[0]?.school],
-                                        tension: 0.2,
+                                        tension: 0,
                                     };
                                 } else {
                                     return {
                                         label: [],
                                         data: [],
                                         borderColor: [],
-                                        tension: 0.2,
+                                        tension: 0,
                                     };
                                 }
                             }
@@ -89,6 +89,11 @@ const Chart: FC = () => {
                         scales: {
                             y: {
                                 beginAtZero: true,
+                                min: 0,
+                                max: 300,
+                                ticks: {
+                                    stepSize: 50,
+                                },
                             },
                         },
                     }}
