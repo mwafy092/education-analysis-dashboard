@@ -92,7 +92,9 @@ const ChartData: FC = () => {
         return (
             <div className='chart__data__container'>
                 <div className='schools__data__container'>
-                    <p className='empty__state'>No Data To Display</p>
+                    <p className='empty__state'>
+                        Please select country, camp and school to view data
+                    </p>
                 </div>
             </div>
         );
@@ -110,8 +112,10 @@ const ChartData: FC = () => {
                     <p>in {camp}</p>
                 </div>
             ) : (
-                <div className='total__schools__data'>
-                    <h2>No Data To Show</h2>
+                <div className='chart__data__container'>
+                    <div className='schools__data__container'>
+                        <p className='empty__state'>Please select school</p>
+                    </div>
                 </div>
             )}
 

@@ -67,3 +67,8 @@
     font-weight: 600;
     font-size: 1.4rem;
 }
+
+.empty__state {
+    color: #8dd0fa;
+    font-weight: 500;
+}

@@ -4,10 +4,7 @@ import { ChartData } from './ChartData';
 import '../styles/dashboard.css';
 const Dashboard: FC = () => {
     return (
-        <section
-            className='dashboard__container'
-            role='dashboardcontainer'
-        >
+        <section className='dashboard__container'>
             <Chart />
             <ChartData />
         </section>
