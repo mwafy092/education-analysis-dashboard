@@ -23,19 +23,21 @@ const Chart: FC = () => {
     }, [chartData]);
 
     useEffect(() => {
-        let sec = educationData[country]?.[camp] || [];
-        let newSectionData: any = {};
-        for (let i of Object.keys(sec)) {
-            newSectionData = {
-                ...newSectionData,
-                [`${i}`]: sortBasedOnMonth(Object.values(sec[i])),
+        let educationDataPerCamp = educationData[country]?.[camp] || [];
+        let sectionData: any = {};
+        for (let i of Object.keys(educationDataPerCamp)) {
+            sectionData = {
+                ...sectionData,
+                [`${i}`]: sortBasedOnMonth(
+                    Object.values(educationDataPerCamp[i])
+                ),
             };
         }
         let _CHART_DATA: Lessons[] = [];
         for (let i of chartData) {
             let key = Object.keys(i)[0];
 
-            _CHART_DATA.push(newSectionData[key]);
+            _CHART_DATA.push(sectionData[key]);
         }
         setLineChartData(_CHART_DATA);
     }, [camp, chartData, country, educationData]);

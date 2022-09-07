@@ -11,24 +11,8 @@ const ChartData: FC = () => {
     const [schoolsData, setSchoolsData] = useState<any>([]);
     const [selectedInput, setSelectedInput] = useState<string[]>([]);
     const dispatch = useDispatch();
-    const { lessonsData, country, camp, school, chartData } = useSelector(
-        (store: StateTypes) => store.lessons
-    );
-    // get total lessons for each camp
-    const getTotalLessonsForCamp = (
-        data: Lessons[],
-        country: string,
-        camp: string
-    ) => {
-        let totalLessons = 0;
-        let lessonsDataArray = data.filter(
-            (item: Lessons) => item.country === country && item.camp === camp
-        );
-        lessonsDataArray.forEach((lesson: Lessons) => {
-            totalLessons += lesson.lessons;
-        });
-        setTotalLessons(totalLessons);
-    };
+    const { lessonsData, country, camp, school, chartData, educationData } =
+        useSelector((store: StateTypes) => store.lessons);
 
     // get computed lessons for each school
     const getLessonsPerSchool = (
@@ -91,8 +75,20 @@ const ChartData: FC = () => {
     }, [selectedInput, dispatch]);
     // useEffect for running functions
     useEffect(() => {
-        getTotalLessonsForCamp(lessonsData, country, camp);
-    }, [lessonsData, country, camp]);
+        let totalLessons = 0;
+        let educationDataPerCamp = educationData[country]?.[camp] || [];
+        let sectionData: any = {};
+        for (let i of Object.keys(educationDataPerCamp)) {
+            sectionData = {
+                ...sectionData,
+                [`${i}`]: Object.values(educationDataPerCamp[i]),
+            };
+        }
+        Object.values(sectionData).forEach((lesson: any) => {
+            totalLessons += lesson.lessons;
+        });
+        setTotalLessons(totalLessons);
+    }, [country, camp, educationData]);
     useEffect(() => {
         getLessonsPerSchool(lessonsData, country, camp, school);
     }, [lessonsData, country, camp, school]);
