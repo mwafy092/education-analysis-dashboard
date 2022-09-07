@@ -5,47 +5,19 @@ import '../styles/chart.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Lessons, StateTypes } from '../reducers/types';
+import { months } from '../utils/tools';
 const Chart: FC = () => {
     const navigate = useNavigate();
     const [colors, setColors] = useState<any>({});
     const [lineChartData, setLineChartData] = useState<Lessons[]>([]);
-    const { chartData, lessonsData, country, camp } = useSelector(
-        (state: StateTypes) => state.lessons
-    );
+    const { chartData, lessonsData, country, camp, educationData } =
+        useSelector((state: StateTypes) => state.lessons);
 
-    const months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-    ];
     const getSchoolsDataSelector = (): Lessons[] => {
         const schoolsPerCamp = lessonsData.filter(
             (lData: Lessons) => lData.country === country && lData.camp === camp
         );
 
-        let months = [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-        ];
         schoolsPerCamp.sort((a: Lessons, b: Lessons) => {
             return months.indexOf(a.month) - months.indexOf(b.month);
         });

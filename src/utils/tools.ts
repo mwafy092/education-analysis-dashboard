@@ -20,3 +20,18 @@ export const sortBasedOnMonth = (dataItems: any) => {
 
     return _DATASET;
 };
+
+export const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+];
