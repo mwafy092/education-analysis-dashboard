@@ -9,7 +9,7 @@
     background-color: #fff;
 }
 .details__data {
-    border-top: 3px solid #ddd;
+    border-top: 3px solid rgb(236, 170, 47);
     display: flex;
     justify-content: space-between;
     align-items: center;
