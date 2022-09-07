@@ -27,7 +27,7 @@ const Filters: FC = () => {
     }, [educationData]);
     useEffect(() => {
         let campsPerCountry =
-            educationData[selectedCountry || savedData.country];
+            educationData[selectedCountry || savedData?.country];
         setCamps(campsPerCountry && Object.keys(campsPerCountry));
     }, [educationData, selectedCountry, savedData]);
 

@@ -7,12 +7,12 @@ export type Lessons = {
     lessons: number;
 };
 export type InitialStateType = {
-    lessonsData: Lessons[];
     isLoading: false | true;
     country: string;
     camp: string;
     school: string;
     chartData: [];
+    totalEducationData: any;
     educationData: any;
 };
 
