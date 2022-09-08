@@ -8,7 +8,7 @@ import { AppDispatch } from './store'
 import { Routes, Route } from 'react-router-dom'
 import { Details } from './components/Details'
 import ClipLoader from 'react-spinners/ClipLoader'
-
+import { StateTypes } from './types'
 const Home = () => {
   return (
     <>
@@ -19,7 +19,7 @@ const Home = () => {
   )
 }
 const App = () => {
-  const { isLoading } = useSelector((state: any) => state.lessons)
+  const { isLoading } = useSelector((state: StateTypes) => state.lessons)
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     dispatch(getLessonsData())

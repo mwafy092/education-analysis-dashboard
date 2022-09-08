@@ -31,6 +31,7 @@ const Chart: FC = () => {
         [`${i}`]: sortBasedOnMonth(Object.values(educationDataPerCamp[i])),
       }
     }
+    console.log(sectionData)
 
     const _CHART_DATA: Lessons[] = []
     for (const i of chartData) {

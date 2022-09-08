@@ -136,7 +136,9 @@ const ChartData: FC = () => {
       ) : (
         <div className='chart__data__container'>
           <div className='schools__data__container'>
-            <p className='empty__state'>Please select school</p>
+            <p className='empty__state' id='emptyCamp'>
+              Please select school
+            </p>
           </div>
         </div>
       )}
@@ -153,6 +155,7 @@ const ChartData: FC = () => {
           >
             {schoolsData[item] && (
               <RadioButtonCheckedIcon
+                id='radioButton'
                 style={{ width: '20px', cursor: 'pointer' }}
                 onClick={(e) => {
                   handleRadioButton(item)
