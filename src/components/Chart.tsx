@@ -71,9 +71,11 @@ const Chart: FC = () => {
           options={{
             onClick: (evt, activeElement: any[]) => {
               const pointData: Lessons = activeElement[0]?.element?.$context.raw
-              navigate('/details', {
-                state: pointData,
-              })
+              if (pointData) {
+                navigate('/details', {
+                  state: pointData,
+                })
+              }
             },
             plugins: {
               legend: {
