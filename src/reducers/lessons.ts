@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getSlicedDataForStore } from 'utils/selectors'
 import { ColorsInterface, EducationData } from 'types'
 export type Lessons = {

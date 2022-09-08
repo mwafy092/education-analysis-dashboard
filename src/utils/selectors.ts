@@ -1,4 +1,4 @@
-import { Lessons, EducationData, SchoolsDataInterface, SavedData } from 'types'
+import { Lessons, EducationData } from 'types'
 export const getSlicedDataForStore = (dataItems: Lessons[]) => {
   let _DATASET: EducationData = {}
   dataItems.forEach((d: { [key: string]: string | number }) => {

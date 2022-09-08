@@ -10,7 +10,8 @@ import 'chart.js/auto'
 const Chart: FC = () => {
   const navigate = useNavigate()
   const [colors, setColors] = useState<ColorsInterface>({})
-  const [lineChartData, setLineChartData] = useState<Lessons[] | any>([])
+  const [lineChartData, setLineChartData] = useState<Lessons[] | Lessons>([])
+  console.log(lineChartData)
   const { chartData, country, camp, educationData } = useSelector(
     (state: StateTypes) => state.lessons,
   )
@@ -49,27 +50,31 @@ const Chart: FC = () => {
         <Line
           data={{
             labels: months,
-            datasets: lineChartData?.map((data: Lessons[]) => {
-              if (data && chartData.length !== 0) {
-                const dataChunk = data[0]?.school || ''
-                return {
-                  label: dataChunk,
-                  data: data,
-                  borderColor: colors[dataChunk],
-                  tension: 0,
+            datasets: (lineChartData as any)?.map(
+              (
+                data: Lessons,
+              ): { label: []; data: Lessons | []; borderColor: string | []; tension: number } => {
+                if (data && chartData.length !== 0) {
+                  const dataChunk = data[0]?.school || ''
+                  return {
+                    label: dataChunk,
+                    data: data,
+                    borderColor: colors[dataChunk],
+                    tension: 0,
+                  }
+                } else {
+                  return {
+                    label: [],
+                    data: [],
+                    borderColor: [],
+                    tension: 0,
+                  }
                 }
-              } else {
-                return {
-                  label: [],
-                  data: [],
-                  borderColor: [],
-                  tension: 0,
-                }
-              }
-            }),
+              },
+            ),
           }}
           options={{
-            onClick: (evt, activeElement: any[]) => {
+            onClick: (evt, activeElement: any) => {
               const pointData: Lessons = activeElement[0]?.element?.$context.raw
               if (pointData) {
                 navigate('/details', {
