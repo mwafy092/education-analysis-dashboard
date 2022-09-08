@@ -7,6 +7,7 @@
     position: relative;
 }
 .total__schools__data {
+    margin-top: 35px;
     display: flex;
     flex-direction: column;
     gap: 5px;
