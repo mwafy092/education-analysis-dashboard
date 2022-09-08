@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Chart } from './Chart'
 import { ChartData } from './ChartData'
-import '../styles/dashboard.css'
+import 'styles/dashboard.css'
 const Dashboard: FC = () => {
   return (
     <section className='dashboard__container'>

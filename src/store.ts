@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import lessonsReducer from './reducers/lessons'
-import modeReducer from './reducers/mode'
+import lessonsReducer from 'reducers/lessons'
+import modeReducer from 'reducers/mode'
 
 const store = configureStore({
   reducer: {

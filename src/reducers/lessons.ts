@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { getSlicedDataForStore } from '../utils/selectors'
-import { ColorsInterface, EducationData } from '../types'
+import { getSlicedDataForStore } from 'utils/selectors'
+import { ColorsInterface, EducationData } from 'types'
 export type Lessons = {
   id: string
   month: string

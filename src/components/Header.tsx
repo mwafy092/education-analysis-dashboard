@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import '../styles/header.css'
-import chartIcon from '../assets/chart.png'
+import 'styles/header.css'
+import chartIcon from 'assets/chart.png'
 const Header: FC = () => {
   return (
     <header className='header__container' role='contentinfo'>

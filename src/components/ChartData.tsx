@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
-import '../styles/chart-data.css'
+import 'styles/chart-data.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { addDataToChartAction } from '../reducers/lessons'
+import { addDataToChartAction } from 'reducers/lessons'
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked'
-import { getSchoolsDataByCountryAndCamp } from '../utils/selectors'
+import { getSchoolsDataByCountryAndCamp } from 'utils/selectors'
 import {
   ColorsInterface,
   SchoolsDataInterface,
@@ -11,7 +11,7 @@ import {
   Lessons,
   StateTypes,
   lessonsDataTypes,
-} from '../types'
+} from 'types'
 const ChartData: FC = () => {
   const [colors, setColors] = useState<ColorsInterface>({})
   const [totalLessons, setTotalLessons] = useState<number>(0)

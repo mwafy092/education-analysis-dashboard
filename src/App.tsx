@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
-import { Dashboard } from './components/Dashboard'
-import { Filters } from './components/Filters'
-import { Header } from './components/Header'
-import { getLessonsData } from './reducers/lessons'
+import { Dashboard } from 'components/Dashboard'
+import { Filters } from 'components/Filters'
+import { Header } from 'components/Header'
+import { getLessonsData } from 'reducers/lessons'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch } from './store'
+import { AppDispatch } from 'store'
 import { Routes, Route } from 'react-router-dom'
-import { Details } from './components/Details'
+import { Details } from 'components/Details'
 import ClipLoader from 'react-spinners/ClipLoader'
-import { StateTypes } from './types'
+import { StateTypes } from 'types'
 const Home = () => {
   return (
     <>

@@ -1,10 +1,10 @@
 import React, { FC, useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2'
-import '../styles/chart.css'
+import 'styles/chart.css'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { months, sortBasedOnMonth } from '../utils/tools'
-import { ColorsInterface, Lessons, SectionData, StateTypes } from '../types'
+import { months, sortBasedOnMonth } from 'utils/tools'
+import { ColorsInterface, Lessons, SectionData, StateTypes } from 'types'
 import 'chart.js/auto'
 
 const Chart: FC = () => {

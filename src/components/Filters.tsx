@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from 'react'
-import '../styles/filters.css'
+import 'styles/filters.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { setLocationDataAction } from '../reducers/lessons'
-import { SavedData, StateTypes } from '../types'
+import { setLocationDataAction } from 'reducers/lessons'
+import { SavedData, StateTypes } from 'types'
 const Filters: FC = () => {
   const dispatch = useDispatch()
   const [countries, setCountries] = useState<string[]>([])

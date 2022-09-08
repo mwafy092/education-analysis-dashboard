@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
 import { useLocation, Link, Location } from 'react-router-dom'
-import '../styles/details.css'
-import backIcon from '../assets/back.png'
-import { Lessons } from '../types'
+import 'styles/details.css'
+import backIcon from 'assets/back.png'
 
 const Details: FC = () => {
   const location: Location = useLocation()
