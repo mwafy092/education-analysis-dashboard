@@ -1,32 +1,32 @@
 export type Lessons = {
-    id: string;
-    month: string;
-    camp: string;
-    country: string;
-    school: string;
-    lessons: number;
-};
+  id: string
+  month: string
+  camp: string
+  country: string
+  school: string
+  lessons: number
+}
 export type InitialStateType = {
-    isLoading: false | true;
-    country: string;
-    camp: string;
-    school: string;
-    chartData: [];
-    educationData: any;
-};
+  isLoading: false | true
+  country: string
+  camp: string
+  school: string
+  chartData: []
+  educationData: any
+}
 
 export type StateTypes = {
-    lessons: InitialStateType;
-    mode: {};
-};
+  lessons: InitialStateType
+  mode: {}
+}
 
 export type lessonsDataTypes = {
-    school: string;
-    lessons: number;
-};
+  school: string
+  lessons: number
+}
 
 export type LocalStorageTypes = {
-    country: string;
-    camp: string;
-    school: string;
-};
+  country: string
+  camp: string
+  school: string
+}

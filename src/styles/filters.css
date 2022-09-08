@@ -1,39 +1,38 @@
 .filters__container {
-    display: flex;
-    justify-content: space-between;
-    margin: 40px 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 0;
 }
 
 .filter {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .filter label {
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: #666;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #666;
 }
 
 .filter select {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-        rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-    background-color: orange;
-    border: none;
-    color: #fff;
-    width: 200px;
-    height: 30px;
-    padding: 0 10px;
-    cursor: pointer;
-    padding-right: 10px;
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    background-image: url("../assets/arrow-down.png");
-    background-repeat: no-repeat;
-    background-position: calc(100% - 10px) center;
-    background-size: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  background-color: orange;
+  border: none;
+  color: #fff;
+  width: 200px;
+  height: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+  padding-right: 10px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image: url('../assets/arrow-down.png');
+  background-repeat: no-repeat;
+  background-position: calc(100% - 10px) center;
+  background-size: 10px;
 }

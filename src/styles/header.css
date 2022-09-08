@@ -2,16 +2,16 @@
     CSS FOR HEADER SECTION
 */
 .header__container {
-    color: orange;
+  color: orange;
 }
 .header__container h1 {
-    font-weight: 600;
-    font-size: 2rem;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
+  font-weight: 600;
+  font-size: 2rem;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }
 .header__container h2 {
-    font-weight: 400;
-    font-size: 1.3rem;
+  font-weight: 400;
+  font-size: 1.3rem;
 }
