@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-type InitialStateType = {
+export type InitialStateType = {
   darkMode: false | true
 }
 
@@ -11,7 +11,12 @@ const initialState: InitialStateType = {
 const modeSlice = createSlice({
   name: 'mode',
   initialState,
-  reducers: {},
+  reducers: {
+    setDarkMode: (state: InitialStateType) => {
+      state.darkMode = !state.darkMode
+    },
+  },
 })
 
+export const { setDarkMode } = modeSlice.actions
 export default modeSlice.reducer

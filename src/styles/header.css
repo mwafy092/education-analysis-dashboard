@@ -3,6 +3,8 @@
 */
 .header__container {
   color: orange;
+  display: flex;
+  justify-content: space-between;
 }
 .header__container h1 {
   font-weight: 600;
@@ -14,4 +16,10 @@
 .header__container h2 {
   font-weight: 400;
   font-size: 1.3rem;
+}
+
+.mode__switcher {
+  cursor: pointer;
+  width: 64px;
+  z-index: 99999;
 }
