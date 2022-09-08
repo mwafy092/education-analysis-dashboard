@@ -12,7 +12,9 @@ const Filters: FC = () => {
   const [selectedCamp, setSelectedCamp] = useState<string>('')
   const [selectedSchool, setSelectedSchool] = useState<string>('')
   const [savedData, setSavedData] = useState<SavedData>()
-  const { country, camp, school, educationData } = useSelector((store: StateTypes) => store.lessons)
+  const { country, camp, school, educationData, countryByVoice, campByVoice } = useSelector(
+    (store: StateTypes) => store.lessons,
+  )
 
   useEffect(() => {
     setSelectedSchool('Show All')
@@ -26,18 +28,19 @@ const Filters: FC = () => {
     setCountries(countries)
   }, [educationData])
   useEffect(() => {
-    const campsPerCountry = educationData[selectedCountry || savedData?.country || '']
+    const campsPerCountry =
+      educationData[selectedCountry || countryByVoice || savedData?.country || '']
     setCamps(campsPerCountry && Object.keys(campsPerCountry))
-  }, [educationData, selectedCountry, savedData])
+  }, [educationData, selectedCountry, savedData, countryByVoice])
 
   useEffect(() => {
     const schoolsPerCamp =
-      educationData?.[selectedCountry || savedData?.country || '']?.[
+      educationData?.[selectedCountry || countryByVoice || savedData?.country || '']?.[
         selectedCamp || savedData?.camp || ''
       ]
     setSchools(schoolsPerCamp && ['Show All', ...Object.keys(schoolsPerCamp)])
-    const countryItem = selectedCountry || savedData?.country
-    const campItem = selectedCamp || savedData?.camp
+    const countryItem = selectedCountry || countryByVoice || savedData?.country
+    const campItem = selectedCamp || campByVoice || savedData?.camp
     const schoolItem = selectedSchool || savedData?.school
     if (countryItem && campItem && schoolItem) {
       dispatch(
@@ -48,7 +51,16 @@ const Filters: FC = () => {
         }),
       )
     }
-  }, [educationData, dispatch, savedData, selectedCamp, selectedCountry, selectedSchool])
+  }, [
+    educationData,
+    dispatch,
+    savedData,
+    selectedCamp,
+    selectedCountry,
+    selectedSchool,
+    countryByVoice,
+    campByVoice,
+  ])
 
   useEffect(() => {
     if (camp || country || school) {
@@ -87,6 +99,12 @@ const Filters: FC = () => {
                   {savedData?.country}
                 </option>
               )
+            } else if (country === countryByVoice) {
+              return (
+                <option key={country} value={countryByVoice} selected>
+                  {countryByVoice}
+                </option>
+              )
             } else {
               return (
                 <option id={country} value={country} key={country}>
@@ -111,6 +129,12 @@ const Filters: FC = () => {
               return (
                 <option key={camp} value={savedData?.camp} selected>
                   {savedData?.camp}
+                </option>
+              )
+            } else if (camp === campByVoice) {
+              return (
+                <option key={camp} value={campByVoice} selected>
+                  {campByVoice}
                 </option>
               )
             } else {

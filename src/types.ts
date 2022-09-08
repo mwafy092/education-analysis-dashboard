@@ -47,6 +47,8 @@ export type InitialStateType = {
   school: string
   chartData: []
   educationData: EducationData
+  countryByVoice: string
+  campByVoice: string
 }
 
 export type StateTypes = {

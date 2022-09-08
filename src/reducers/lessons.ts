@@ -15,6 +15,8 @@ export type InitialStateType = {
   country: string
   camp: string
   school: string
+  countryByVoice: string
+  campByVoice: string
   chartData: ColorsInterface[]
   educationData: EducationData
 }
@@ -26,6 +28,8 @@ const initialState: InitialStateType = {
   school: '',
   chartData: [],
   educationData: {},
+  countryByVoice: '',
+  campByVoice: '',
 }
 
 // thunk configuration
@@ -60,6 +64,10 @@ const lessonsSlice = createSlice({
       state.camp = action.payload.campItem
       state.school = action.payload.schoolItem
     },
+    setLocationDataByVoiceAction: (state: InitialStateType, action: any) => {
+      state.countryByVoice = action.payload.countryItem
+      state.campByVoice = action.payload.campItem
+    },
     addDataToChartAction: (state: InitialStateType, action: ChartDataAction) => {
       state.chartData = action.payload
     },
@@ -81,6 +89,7 @@ const lessonsSlice = createSlice({
   },
 })
 
-export const { setLocationDataAction, addDataToChartAction } = lessonsSlice.actions
+export const { setLocationDataAction, addDataToChartAction, setLocationDataByVoiceAction } =
+  lessonsSlice.actions
 
 export default lessonsSlice.reducer
