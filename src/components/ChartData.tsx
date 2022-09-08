@@ -137,7 +137,7 @@ const ChartData: FC = () => {
         <div className='chart__data__container'>
           <div className='schools__data__container'>
             <p className='empty__state' id='emptyCamp'>
-              Please select school
+              Please select country, camp and school to view data
             </p>
           </div>
         </div>
