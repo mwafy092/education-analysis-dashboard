@@ -3,16 +3,21 @@ import '../styles/chart-data.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { addDataToChartAction } from '../reducers/lessons'
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked'
-import { Lessons, StateTypes, lessonsDataTypes } from '../reducers/types'
 import { getSchoolsDataByCountryAndCamp } from '../utils/selectors'
-import { ColorsInterface, SchoolsDataInterface, TopSchool } from '../types'
+import {
+  ColorsInterface,
+  SchoolsDataInterface,
+  TopSchool,
+  Lessons,
+  StateTypes,
+  lessonsDataTypes,
+} from '../types'
 const ChartData: FC = () => {
   const [colors, setColors] = useState<ColorsInterface>({})
   const [totalLessons, setTotalLessons] = useState<number>(0)
-  const [schoolsData, setSchoolsData] = useState<SchoolsDataInterface | any>([])
+  const [schoolsData, setSchoolsData] = useState<SchoolsDataInterface>([])
   const [selectedInput, setSelectedInput] = useState<string[]>([])
-  const [topSchool, setTopSchool] = useState<TopSchool | any>({})
-  console.log(topSchool)
+  const [topSchool, setTopSchool] = useState<TopSchool>({})
   const dispatch = useDispatch()
   const { country, camp, school, chartData, educationData } = useSelector(
     (store: StateTypes) => store.lessons,
@@ -67,7 +72,7 @@ const ChartData: FC = () => {
 
     const lessonsData: lessonsDataTypes[] = []
     schoolsArray.forEach((sc: Lessons) => {
-      lessonsData.push({ school: sc.school, lessons: sc.lessons })
+      lessonsData.push({ school: sc?.school || '', lessons: sc?.lessons || 0 })
     })
 
     const computedLessonsData: SchoolsDataInterface = {}
@@ -91,7 +96,6 @@ const ChartData: FC = () => {
   useEffect(() => {
     let colorsObject: ColorsInterface = {}
     chartData.forEach((color: ColorsInterface) => {
-      console.log(color)
       colorsObject = { ...colorsObject, ...color }
     })
     setColors(colorsObject)

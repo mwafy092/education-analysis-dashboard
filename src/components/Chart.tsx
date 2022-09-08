@@ -1,17 +1,16 @@
 import React, { FC, useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2'
-import 'chart.js/auto'
 import '../styles/chart.css'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { StateTypes } from '../reducers/types'
 import { months, sortBasedOnMonth } from '../utils/tools'
-import { ColorsInterface, Lessons, SectionData } from '../types'
+import { ColorsInterface, Lessons, SectionData, StateTypes } from '../types'
+import 'chart.js/auto'
+
 const Chart: FC = () => {
   const navigate = useNavigate()
   const [colors, setColors] = useState<ColorsInterface>({})
-  const [lineChartData, setLineChartData] = useState<Lessons[] | any>([])
-  console.log(lineChartData)
+  const [lineChartData, setLineChartData] = useState<Lessons[] | SectionData>([])
   const { chartData, country, camp, educationData } = useSelector(
     (state: StateTypes) => state.lessons,
   )
@@ -23,7 +22,6 @@ const Chart: FC = () => {
     })
     setColors(colorsObject)
   }, [chartData])
-  console.log(colors)
   useEffect(() => {
     const educationDataPerCamp = educationData[country]?.[camp] || []
     let sectionData: SectionData = {}
@@ -36,7 +34,7 @@ const Chart: FC = () => {
 
     const _CHART_DATA: Lessons[] = []
     for (const i of chartData) {
-      const key = Object.keys(i)[0]
+      const key: string = Object.keys(i)[0]
 
       _CHART_DATA.push(sectionData[key])
     }
@@ -72,7 +70,7 @@ const Chart: FC = () => {
           }}
           options={{
             onClick: (evt, activeElement: any) => {
-              const pointData = activeElement[0].element?.$context.raw
+              const pointData: Lessons = activeElement[0]?.element?.$context.raw
               navigate('/details', {
                 state: pointData,
               })

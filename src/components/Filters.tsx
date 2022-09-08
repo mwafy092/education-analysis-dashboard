@@ -2,8 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import '../styles/filters.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLocationDataAction } from '../reducers/lessons'
-import { StateTypes } from '../reducers/types'
-import { SavedData } from '../types'
+import { SavedData, StateTypes } from '../types'
 const Filters: FC = () => {
   const dispatch = useDispatch()
   const [countries, setCountries] = useState<string[]>([])
@@ -13,7 +12,6 @@ const Filters: FC = () => {
   const [selectedCamp, setSelectedCamp] = useState<string>('')
   const [selectedSchool, setSelectedSchool] = useState<string>('')
   const [savedData, setSavedData] = useState<SavedData>()
-  console.log(savedData)
   const { country, camp, school, educationData } = useSelector((store: StateTypes) => store.lessons)
 
   useEffect(() => {
@@ -41,13 +39,15 @@ const Filters: FC = () => {
     const countryItem = selectedCountry || savedData?.country
     const campItem = selectedCamp || savedData?.camp
     const schoolItem = selectedSchool || savedData?.school
-    dispatch(
-      setLocationDataAction({
-        countryItem,
-        campItem,
-        schoolItem,
-      }),
-    )
+    if (countryItem && campItem && schoolItem) {
+      dispatch(
+        setLocationDataAction({
+          countryItem,
+          campItem,
+          schoolItem,
+        }),
+      )
+    }
   }, [educationData, dispatch, savedData, selectedCamp, selectedCountry, selectedSchool])
 
   useEffect(() => {

@@ -1,6 +1,7 @@
-export const sortBasedOnMonth = (dataItems: any) => {
-  const _DATASET: any = dataItems
-  const months = [
+import { Lessons } from '../types'
+export const sortBasedOnMonth = (dataItems: Lessons[]) => {
+  const _DATASET: Lessons[] = dataItems
+  const months: string[] = [
     'Jan',
     'Feb',
     'Mar',
@@ -14,8 +15,8 @@ export const sortBasedOnMonth = (dataItems: any) => {
     'Nov',
     'Dec',
   ]
-  _DATASET.sort((a: any, b: any) => {
-    return months.indexOf(a.month) - months.indexOf(b.month)
+  _DATASET.sort((a: Lessons, b: Lessons) => {
+    return months.indexOf(a.month ? a.month : '') - months.indexOf(b.month ? b.month : '')
   })
 
   return _DATASET

@@ -12,20 +12,54 @@ export type Lessons = {
 }
 
 export interface SectionData {
-  [key: string]: Lessons
+  [key: string]: [] | any | Lessons[]
 }
 
 export interface SchoolsDataInterface {
-  [key: string]: number
+  [key: string]: number | any
 }
 
 export interface TopSchool {
-  school: string
-  lessons: number
+  school?: string
+  lessons?: number
 }
 
 export interface SavedData {
   country?: string
   camp?: string
   school?: string
+}
+
+export interface EducationData {
+  [key: string]: {
+    [key: string]: {
+      [key: string]: {
+        [key: string]: Lessons
+      }
+    }
+  }
+}
+
+export type InitialStateType = {
+  isLoading: false | true
+  country: string
+  camp: string
+  school: string
+  chartData: []
+  educationData: EducationData
+}
+
+export type StateTypes = {
+  lessons: InitialStateType
+}
+
+export type lessonsDataTypes = {
+  school: string
+  lessons: number
+}
+
+export type LocalStorageTypes = {
+  country: string
+  camp: string
+  school: string
 }

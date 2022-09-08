@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, Location } from 'react-router-dom'
 import '../styles/details.css'
 import backIcon from '../assets/back.png'
 import { Lessons } from '../types'
 
 const Details: FC = () => {
-  const { state }: Lessons | any = useLocation()
+  const location: Location = useLocation()
+  const state: any = location?.state
   return (
     <div className='details__data__container'>
       <Link to='/' role='link' className='back__link'>

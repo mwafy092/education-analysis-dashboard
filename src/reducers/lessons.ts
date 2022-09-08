@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { getSlicedDataForStore } from '../utils/selectors'
+import { ColorsInterface, EducationData } from '../types'
 export type Lessons = {
   id: string
   month: string
@@ -14,8 +15,8 @@ export type InitialStateType = {
   country: string
   camp: string
   school: string
-  chartData: []
-  educationData: any
+  chartData: ColorsInterface[]
+  educationData: EducationData
 }
 
 const initialState: InitialStateType = {
@@ -37,16 +38,29 @@ export const getLessonsData = createAsyncThunk('lessons/getLessonsData', () => {
     .catch((err) => console.error(err))
 })
 
+type ChartDataAction = {
+  type: string
+  payload: ColorsInterface[]
+}
+type LocationData = {
+  countryItem: string
+  campItem: string
+  schoolItem: string
+}
+type LocationDataAction = {
+  type: string
+  payload: LocationData
+}
 const lessonsSlice = createSlice({
   name: 'lessons',
   initialState,
   reducers: {
-    setLocationDataAction: (state: InitialStateType, action: any) => {
+    setLocationDataAction: (state: InitialStateType, action: LocationDataAction) => {
       state.country = action.payload.countryItem
       state.camp = action.payload.campItem
       state.school = action.payload.schoolItem
     },
-    addDataToChartAction: (state: InitialStateType, action: any) => {
+    addDataToChartAction: (state: InitialStateType, action: ChartDataAction) => {
       state.chartData = action.payload
     },
   },
@@ -54,7 +68,7 @@ const lessonsSlice = createSlice({
     builder.addCase(getLessonsData.pending, (state: InitialStateType) => {
       state.isLoading = true
     })
-    builder.addCase(getLessonsData.fulfilled, (state: any, action: PayloadAction) => {
+    builder.addCase(getLessonsData.fulfilled, (state: InitialStateType, action: PayloadAction) => {
       state.educationData = getSlicedDataForStore(action.payload)
       state.isLoading = false
     })
