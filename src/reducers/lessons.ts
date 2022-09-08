@@ -68,10 +68,13 @@ const lessonsSlice = createSlice({
     builder.addCase(getLessonsData.pending, (state: InitialStateType) => {
       state.isLoading = true
     })
-    builder.addCase(getLessonsData.fulfilled, (state: InitialStateType, action: PayloadAction) => {
-      state.educationData = getSlicedDataForStore(action.payload)
-      state.isLoading = false
-    })
+    builder.addCase(
+      getLessonsData.fulfilled,
+      (state: InitialStateType, action: { type: string; payload: Lessons[] }) => {
+        state.educationData = getSlicedDataForStore(action.payload)
+        state.isLoading = false
+      },
+    )
     builder.addCase(getLessonsData.rejected, (state: InitialStateType) => {
       state.isLoading = false
     })

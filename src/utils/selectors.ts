@@ -1,6 +1,9 @@
-export const getSlicedDataForStore = (dataItems: any) => {
-  let _DATASET: any = {}
-  dataItems.forEach((d: any) => {
+import { Lessons, EducationData, SchoolsDataInterface } from 'types'
+export const getSlicedDataForStore = (dataItems: Lessons[]) => {
+  console.log(dataItems)
+  let _DATASET: EducationData = {}
+  console.log(_DATASET)
+  dataItems.forEach((d: { [key: string]: string | number }) => {
     _DATASET = {
       ..._DATASET,
       [d.country]: {
@@ -18,11 +21,23 @@ export const getSlicedDataForStore = (dataItems: any) => {
   return _DATASET
 }
 
-export const getSchoolsDataByCountryAndCamp = (dataItems: any, country?: any, camp?: any) => {
-  const filteredData = dataItems?.[country]?.[camp] || {}
-  const dataByMonths = Object.values(filteredData)
-  const allData: any = []
+export const getSchoolsDataByCountryAndCamp = (
+  dataItems: EducationData,
+  country?: string,
+  camp?: string,
+) => {
+  let filteredData: { [key: string]: { [key: string]: Lessons } } = {}
+  if (country && camp) {
+    filteredData = dataItems?.[country]?.[camp]
+  }
+  console.log(filteredData)
+  let dataByMonths: Lessons[] = []
+  if (filteredData) {
+    dataByMonths = Object.values(filteredData)
+  }
+  const allData: any[] = []
   for (const item of dataByMonths) {
+    console.log(item)
     allData.push(...[item && Object.values(item)])
   }
   /* eslint prefer-spread: "off" */

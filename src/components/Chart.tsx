@@ -10,7 +10,8 @@ import 'chart.js/auto'
 const Chart: FC = () => {
   const navigate = useNavigate()
   const [colors, setColors] = useState<ColorsInterface>({})
-  const [lineChartData, setLineChartData] = useState<Lessons[] | SectionData>([])
+  const [lineChartData, setLineChartData] = useState<Lessons[] | any>([])
+  console.log(lineChartData)
   const { chartData, country, camp, educationData } = useSelector(
     (state: StateTypes) => state.lessons,
   )
@@ -24,14 +25,13 @@ const Chart: FC = () => {
   }, [chartData])
   useEffect(() => {
     const educationDataPerCamp = educationData[country]?.[camp] || []
-    let sectionData: SectionData = {}
+    let sectionData: SectionData[] = []
     for (const i of Object.keys(educationDataPerCamp)) {
       sectionData = {
         ...sectionData,
         [`${i}`]: sortBasedOnMonth(Object.values(educationDataPerCamp[i])),
       }
     }
-    console.log(sectionData)
 
     const _CHART_DATA: Lessons[] = []
     for (const i of chartData) {
@@ -43,6 +43,7 @@ const Chart: FC = () => {
     setLineChartData(_CHART_DATA)
   }, [camp, chartData, country, educationData])
 
+  console.log(lineChartData)
   return (
     <div className='chart__container'>
       <h3>No of lessons</h3>
@@ -50,7 +51,7 @@ const Chart: FC = () => {
         <Line
           data={{
             labels: months,
-            datasets: lineChartData?.map((data: Lessons[], _index: number) => {
+            datasets: lineChartData?.map((data: Lessons[]) => {
               if (data && chartData.length !== 0) {
                 const dataChunk = data[0]?.school || ''
                 return {
@@ -70,7 +71,7 @@ const Chart: FC = () => {
             }),
           }}
           options={{
-            onClick: (evt, activeElement: any) => {
+            onClick: (evt, activeElement: any[]) => {
               const pointData: Lessons = activeElement[0]?.element?.$context.raw
               navigate('/details', {
                 state: pointData,

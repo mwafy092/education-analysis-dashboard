@@ -57,8 +57,16 @@ const Filters: FC = () => {
   }, [camp, country, school])
 
   useEffect(() => {
-    const savedData: SavedData | any = localStorage?.getItem('savedFilteredData')
-    const parsedData = JSON.parse(savedData)
+    const savedData: string | null = localStorage?.getItem('savedFilteredData')
+    let parsedData: { country: string; camp: string; school: string } = {
+      country: '',
+      camp: '',
+      school: '',
+    }
+    if (savedData) {
+      parsedData = JSON.parse(savedData)
+    }
+    console.log(savedData)
     setSavedData(parsedData)
   }, [])
 

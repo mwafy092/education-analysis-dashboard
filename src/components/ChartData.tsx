@@ -15,7 +15,7 @@ import {
 const ChartData: FC = () => {
   const [colors, setColors] = useState<ColorsInterface>({})
   const [totalLessons, setTotalLessons] = useState<number>(0)
-  const [schoolsData, setSchoolsData] = useState<SchoolsDataInterface>([])
+  const [schoolsData, setSchoolsData] = useState<SchoolsDataInterface[] | SchoolsDataInterface>([])
   const [selectedInput, setSelectedInput] = useState<string[]>([])
   const [topSchool, setTopSchool] = useState<TopSchool>({})
   const dispatch = useDispatch()
@@ -144,7 +144,7 @@ const ChartData: FC = () => {
       )}
 
       <div className='schools__data__container'>
-        {Object.keys(schoolsData).map((item: string, index: number) => (
+        {Object.keys(schoolsData).map((item: string) => (
           <div
             className='school__data'
             key={item}
@@ -157,7 +157,7 @@ const ChartData: FC = () => {
               <RadioButtonCheckedIcon
                 id='radioButton'
                 style={{ width: '20px', cursor: 'pointer' }}
-                onClick={(e) => {
+                onClick={() => {
                   handleRadioButton(item)
                 }}
               />

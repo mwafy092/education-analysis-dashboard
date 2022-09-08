@@ -10,6 +10,7 @@ I implemented a chart for number of lessons analysis per school, camp and countr
 4.  React Router V6
 5.  Jest for testing
 6.  Material UI
+7.  Cypress for E2E Testing
 
 ## How To Run
 
@@ -18,7 +19,7 @@ I implemented a chart for number of lessons analysis per school, camp and countr
 3. npm i
 4. npm run start
 5. For building (npm run build)
-6. For testing (npm run test)
+6. For testing (npm run test) to run cypress
 
 ## Live Deployed Link
 

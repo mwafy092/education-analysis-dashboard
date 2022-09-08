@@ -12,11 +12,11 @@ export type Lessons = {
 }
 
 export interface SectionData {
-  [key: string]: [] | any | Lessons[]
+  [key: string]: Lessons
 }
 
 export interface SchoolsDataInterface {
-  [key: string]: number | any
+  [key: string]: number
 }
 
 export interface TopSchool {
