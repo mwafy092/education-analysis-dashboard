@@ -1,8 +1,6 @@
-import { Lessons, EducationData, SchoolsDataInterface } from 'types'
+import { Lessons, EducationData, SchoolsDataInterface, SavedData } from 'types'
 export const getSlicedDataForStore = (dataItems: Lessons[]) => {
-  console.log(dataItems)
   let _DATASET: EducationData = {}
-  console.log(_DATASET)
   dataItems.forEach((d: { [key: string]: string | number }) => {
     _DATASET = {
       ..._DATASET,
@@ -30,14 +28,12 @@ export const getSchoolsDataByCountryAndCamp = (
   if (country && camp) {
     filteredData = dataItems?.[country]?.[camp]
   }
-  console.log(filteredData)
   let dataByMonths: Lessons[] = []
   if (filteredData) {
     dataByMonths = Object.values(filteredData)
   }
   const allData: any[] = []
   for (const item of dataByMonths) {
-    console.log(item)
     allData.push(...[item && Object.values(item)])
   }
   /* eslint prefer-spread: "off" */

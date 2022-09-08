@@ -66,7 +66,6 @@ const Filters: FC = () => {
     if (savedData) {
       parsedData = JSON.parse(savedData)
     }
-    console.log(savedData)
     setSavedData(parsedData)
   }, [])
 
