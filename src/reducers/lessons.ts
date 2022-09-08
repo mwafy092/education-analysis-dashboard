@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getSlicedDataForStore } from '../utils/selectors';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { getSlicedDataForStore } from "../utils/selectors";
 export type Lessons = {
     id: string;
     month: string;
@@ -20,38 +20,38 @@ export type InitialStateType = {
 
 const initialState: InitialStateType = {
     isLoading: true,
-    country: '',
-    camp: '',
-    school: '',
+    country: "",
+    camp: "",
+    school: "",
     chartData: [],
     educationData: {},
 };
 
 // thunk configuration
 const apiURL =
-    'https://raw.githubusercontent.com/abdelrhman-arnos/analysis-fe-challenge/master/data.json';
+    "https://raw.githubusercontent.com/abdelrhman-arnos/analysis-fe-challenge/master/data.json";
 
-export const getLessonsData = createAsyncThunk('lessons/getLessonsData', () => {
+export const getLessonsData = createAsyncThunk("lessons/getLessonsData", () => {
     return fetch(apiURL)
         .then((res) => res.json())
         .catch((err) => console.error(err));
 });
 
 const lessonsSlice = createSlice({
-    name: 'lessons',
+    name: "lessons",
     initialState,
     reducers: {
-        setLocationDataAction: (state: any, action: any) => {
+        setLocationDataAction: (state: InitialStateType, action: any) => {
             state.country = action.payload.countryItem;
             state.camp = action.payload.campItem;
             state.school = action.payload.schoolItem;
         },
-        addDataToChartAction: (state: any, action: any) => {
+        addDataToChartAction: (state: InitialStateType, action: any) => {
             state.chartData = action.payload;
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getLessonsData.pending, (state: any) => {
+        builder.addCase(getLessonsData.pending, (state: InitialStateType) => {
             state.isLoading = true;
         });
         builder.addCase(
@@ -61,7 +61,7 @@ const lessonsSlice = createSlice({
                 state.isLoading = false;
             }
         );
-        builder.addCase(getLessonsData.rejected, (state: any) => {
+        builder.addCase(getLessonsData.rejected, (state: InitialStateType) => {
             state.isLoading = false;
         });
     },

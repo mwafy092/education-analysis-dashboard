@@ -1,16 +1,20 @@
-import React, { FC, useEffect, useState } from 'react';
-import '../styles/chart-data.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { addDataToChartAction } from '../reducers/lessons';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import { Lessons, StateTypes, lessonsDataTypes } from '../reducers/types';
-import { getSchoolsDataByCountryAndCamp } from '../utils/selectors';
+import React, { FC, useEffect, useState } from "react";
+import "../styles/chart-data.css";
+import { useSelector, useDispatch } from "react-redux";
+import { addDataToChartAction } from "../reducers/lessons";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import { Lessons, StateTypes, lessonsDataTypes } from "../reducers/types";
+import { getSchoolsDataByCountryAndCamp } from "../utils/selectors";
+import { ColorsInterface, SchoolsDataInterface, TopSchool } from "../types";
 const ChartData: FC = () => {
-    const [colors, setColors] = useState<any>({});
+    const [colors, setColors] = useState<ColorsInterface>({});
     const [totalLessons, setTotalLessons] = useState<number>(0);
-    const [schoolsData, setSchoolsData] = useState<any>([]);
+    const [schoolsData, setSchoolsData] = useState<SchoolsDataInterface | any>(
+        []
+    );
     const [selectedInput, setSelectedInput] = useState<string[]>([]);
-    const [topSchool, setTopSchool] = useState<any>({});
+    const [topSchool, setTopSchool] = useState<TopSchool | any>({});
+    console.log(topSchool);
     const dispatch = useDispatch();
     const { country, camp, school, chartData, educationData } = useSelector(
         (store: StateTypes) => store.lessons
@@ -35,7 +39,7 @@ const ChartData: FC = () => {
     }, [camp]);
 
     useEffect(() => {
-        let topSchoolByLessons = { lessons: 0, school: '' };
+        let topSchoolByLessons = { lessons: 0, school: "" };
         for (let item of Object.keys(schoolsData)) {
             topSchoolByLessons =
                 topSchoolByLessons.lessons < schoolsData[item]
@@ -47,9 +51,9 @@ const ChartData: FC = () => {
     }, [schoolsData]);
 
     useEffect(() => {
-        const chartColors = ['orange', 'purple', 'skyblue', 'red'];
-        const chartDataWithColors: any = [];
-        selectedInput.forEach((item: any, index: number) =>
+        const chartColors = ["orange", "purple", "skyblue", "red"];
+        const chartDataWithColors: ColorsInterface[] = [];
+        selectedInput.forEach((item: string, index: number) =>
             chartDataWithColors.push({ [item]: chartColors[index] })
         );
         dispatch(addDataToChartAction(chartDataWithColors));
@@ -75,7 +79,7 @@ const ChartData: FC = () => {
             lessonsData.push({ school: sc.school, lessons: sc.lessons });
         });
 
-        let computedLessonsData: any = {};
+        let computedLessonsData: SchoolsDataInterface = {};
         lessonsData.forEach((ld: lessonsDataTypes) => {
             if (ld.school in computedLessonsData) {
                 computedLessonsData[`${ld.school}`] += ld.lessons;
@@ -84,7 +88,7 @@ const ChartData: FC = () => {
             }
         });
 
-        if (school?.toLowerCase() === 'show all') {
+        if (school?.toLowerCase() === "show all") {
             setSchoolsData(computedLessonsData);
         } else {
             setSchoolsData({
@@ -94,8 +98,9 @@ const ChartData: FC = () => {
     }, [educationData, country, camp, school]);
 
     useEffect(() => {
-        let colorsObject: any = {};
-        chartData.forEach((color: any) => {
+        let colorsObject: ColorsInterface = {};
+        chartData.forEach((color: ColorsInterface) => {
+            console.log(color);
             colorsObject = { ...colorsObject, ...color };
         });
         setColors(colorsObject);
@@ -103,9 +108,9 @@ const ChartData: FC = () => {
 
     if (!camp) {
         return (
-            <div className='chart__data__container'>
-                <div className='schools__data__container'>
-                    <p className='empty__state'>
+            <div className="chart__data__container">
+                <div className="schools__data__container">
+                    <p className="empty__state">
                         Please select country, camp and school to view data
                     </p>
                 </div>
@@ -113,9 +118,9 @@ const ChartData: FC = () => {
         );
     }
     return (
-        <div className='chart__data__container'>
+        <div className="chart__data__container">
             {totalLessons ? (
-                <div className='top__school__label'>
+                <div className="top__school__label">
                     {Object.keys(schoolsData).length > 1 ? (
                         <div>
                             <span>{topSchool.school}</span> is the top school
@@ -123,43 +128,43 @@ const ChartData: FC = () => {
                         </div>
                     ) : (
                         <div>
-                            <span>{topSchool.school}</span> has{' '}
+                            <span>{topSchool.school}</span> has{" "}
                             <span>{topSchool.lessons}</span> lessons
                         </div>
                     )}
                 </div>
             ) : null}
             {totalLessons ? (
-                <div className='total__schools__data'>
+                <div className="total__schools__data">
                     <h2>
-                        <span className='total__lessons__num'>
+                        <span className="total__lessons__num">
                             {totalLessons}
-                        </span>{' '}
+                        </span>{" "}
                         lessons
                     </h2>
                     <p>in {camp}</p>
                 </div>
             ) : (
-                <div className='chart__data__container'>
-                    <div className='schools__data__container'>
-                        <p className='empty__state'>Please select school</p>
+                <div className="chart__data__container">
+                    <div className="schools__data__container">
+                        <p className="empty__state">Please select school</p>
                     </div>
                 </div>
             )}
 
-            <div className='schools__data__container'>
+            <div className="schools__data__container">
                 {Object.keys(schoolsData).map((item: string, index: number) => (
                     <div
-                        className='school__data'
+                        className="school__data"
                         key={item}
                         id={item}
                         style={{
-                            color: colors[item] || 'gray',
+                            color: colors[item] || "gray",
                         }}
                     >
                         {schoolsData[item] && (
                             <RadioButtonCheckedIcon
-                                style={{ width: '20px', cursor: 'pointer' }}
+                                style={{ width: "20px", cursor: "pointer" }}
                                 onClick={(e) => {
                                     handleRadioButton(item);
                                 }}
@@ -167,11 +172,11 @@ const ChartData: FC = () => {
                         )}
 
                         {schoolsData[item] && (
-                            <div className='school__info'>
+                            <div className="school__info">
                                 <h3>
-                                    <span className='lesson__num'>
+                                    <span className="lesson__num">
                                         {schoolsData[item]}
-                                    </span>{' '}
+                                    </span>{" "}
                                     lessons
                                 </h3>
                                 <p>in {item}</p>

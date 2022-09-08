@@ -1,24 +1,26 @@
-import React, { FC, useEffect, useState } from 'react';
-import '../styles/filters.css';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { setLocationDataAction } from '../reducers/lessons';
-import { StateTypes } from '../reducers/types';
+import React, { FC, useEffect, useState } from "react";
+import "../styles/filters.css";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setLocationDataAction } from "../reducers/lessons";
+import { StateTypes } from "../reducers/types";
+import { SavedData } from "../types";
 const Filters: FC = () => {
     const dispatch = useDispatch();
     const [countries, setCountries] = useState<string[]>([]);
     const [camps, setCamps] = useState<string[]>([]);
     const [schools, setSchools] = useState<string[]>([]);
-    const [selectedCountry, setSelectedCountry] = useState<string>('');
-    const [selectedCamp, setSelectedCamp] = useState<string>('');
-    const [selectedSchool, setSelectedSchool] = useState<string>('');
-    const [savedData, setSavedData] = useState<any>({});
+    const [selectedCountry, setSelectedCountry] = useState<string>("");
+    const [selectedCamp, setSelectedCamp] = useState<string>("");
+    const [selectedSchool, setSelectedSchool] = useState<string>("");
+    const [savedData, setSavedData] = useState<SavedData>();
+    console.log(savedData);
     const { country, camp, school, educationData } = useSelector(
         (store: StateTypes) => store.lessons
     );
 
     useEffect(() => {
-        setSelectedSchool('Show All');
+        setSelectedSchool("Show All");
     }, []);
     // use effect section for fetching data from store
     useEffect(() => {
@@ -30,17 +32,17 @@ const Filters: FC = () => {
     }, [educationData]);
     useEffect(() => {
         let campsPerCountry =
-            educationData[selectedCountry || savedData?.country];
+            educationData[selectedCountry || savedData?.country || ""];
         setCamps(campsPerCountry && Object.keys(campsPerCountry));
     }, [educationData, selectedCountry, savedData]);
 
     useEffect(() => {
         let schoolsPerCamp =
-            educationData?.[selectedCountry || savedData?.country]?.[
-                selectedCamp || savedData?.camp
+            educationData?.[selectedCountry || savedData?.country || ""]?.[
+                selectedCamp || savedData?.camp || ""
             ];
         setSchools(
-            schoolsPerCamp && ['Show All', ...Object.keys(schoolsPerCamp)]
+            schoolsPerCamp && ["Show All", ...Object.keys(schoolsPerCamp)]
         );
         const countryItem = selectedCountry || savedData?.country;
         const campItem = selectedCamp || savedData?.camp;
@@ -64,29 +66,30 @@ const Filters: FC = () => {
     useEffect(() => {
         if (camp || country || school) {
             localStorage.setItem(
-                'savedFilteredData',
+                "savedFilteredData",
                 JSON.stringify({ country, camp, school })
             );
         }
     }, [camp, country, school]);
 
     useEffect(() => {
-        let savedData: any = localStorage?.getItem('savedFilteredData');
+        let savedData: SavedData | any =
+            localStorage?.getItem("savedFilteredData");
         let parsedData = JSON.parse(savedData);
         setSavedData(parsedData);
     }, []);
 
     return (
-        <section className='filters__container'>
-            <div className='filter'>
-                <label htmlFor='country'>Select Country</label>
+        <section className="filters__container">
+            <div className="filter">
+                <label htmlFor="country">Select Country</label>
                 <select
-                    id='country'
+                    id="country"
                     onChange={(e) => {
                         setSelectedCountry(e.target.value);
                     }}
                 >
-                    <option value='null'>Select Country</option>
+                    <option value="null">Select Country</option>
                     {countries?.map((country: string) => {
                         if (country === savedData?.country) {
                             return (
@@ -112,15 +115,15 @@ const Filters: FC = () => {
                     })}
                 </select>
             </div>
-            <div className='filter'>
-                <label htmlFor='camp'>Select Camp</label>
+            <div className="filter">
+                <label htmlFor="camp">Select Camp</label>
                 <select
-                    id='camp'
+                    id="camp"
                     onChange={(e) => {
                         setSelectedCamp(e.target.value);
                     }}
                 >
-                    <option value={'null'}>Select Camp</option>
+                    <option value={"null"}>Select Camp</option>
                     {camps?.map((camp: string) => {
                         if (camp === savedData?.camp) {
                             return (
@@ -146,10 +149,10 @@ const Filters: FC = () => {
                     })}
                 </select>
             </div>
-            <div className='filter'>
-                <label htmlFor='school'>Select School</label>
+            <div className="filter">
+                <label htmlFor="school">Select School</label>
                 <select
-                    id='school'
+                    id="school"
                     onChange={(e) => {
                         setSelectedSchool(e.target.value);
                     }}

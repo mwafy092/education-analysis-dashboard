@@ -1,30 +1,32 @@
-import React, { FC, useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
-import 'chart.js/auto';
-import '../styles/chart.css';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Lessons, StateTypes } from '../reducers/types';
-import { months, sortBasedOnMonth } from '../utils/tools';
+import React, { FC, useState, useEffect } from "react";
+import { Line } from "react-chartjs-2";
+import "chart.js/auto";
+import "../styles/chart.css";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { StateTypes } from "../reducers/types";
+import { months, sortBasedOnMonth } from "../utils/tools";
+import { ColorsInterface, Lessons, SectionData } from "../types";
 const Chart: FC = () => {
     const navigate = useNavigate();
-    const [colors, setColors] = useState<any>({});
-    const [lineChartData, setLineChartData] = useState<Lessons[]>([]);
+    const [colors, setColors] = useState<ColorsInterface>({});
+    const [lineChartData, setLineChartData] = useState<Lessons[] | any>([]);
+    console.log(lineChartData);
     const { chartData, country, camp, educationData } = useSelector(
         (state: StateTypes) => state.lessons
     );
 
     useEffect(() => {
-        let colorsObject: any = {};
-        chartData.forEach((color: any) => {
+        let colorsObject: ColorsInterface = {};
+        chartData.forEach((color: ColorsInterface) => {
             colorsObject = { ...colorsObject, ...color };
         });
         setColors(colorsObject);
     }, [chartData]);
-
+    console.log(colors);
     useEffect(() => {
         let educationDataPerCamp = educationData[country]?.[camp] || [];
-        let sectionData: any = {};
+        let sectionData: SectionData = {};
         for (let i of Object.keys(educationDataPerCamp)) {
             sectionData = {
                 ...sectionData,
@@ -33,29 +35,32 @@ const Chart: FC = () => {
                 ),
             };
         }
+
         let _CHART_DATA: Lessons[] = [];
         for (let i of chartData) {
             let key = Object.keys(i)[0];
 
             _CHART_DATA.push(sectionData[key]);
         }
+
         setLineChartData(_CHART_DATA);
     }, [camp, chartData, country, educationData]);
 
     return (
-        <div className='chart__container'>
+        <div className="chart__container">
             <h3>No of lessons</h3>
-            <div className='chart'>
+            <div className="chart">
                 <Line
                     data={{
                         labels: months,
                         datasets: lineChartData?.map(
-                            (data: any, index: number) => {
+                            (data: Lessons[], _index: number) => {
                                 if (data && chartData.length !== 0) {
+                                    let dataChunk = data[0]?.school || "";
                                     return {
-                                        label: data[0]?.school,
+                                        label: dataChunk,
                                         data: data,
-                                        borderColor: colors[data[0]?.school],
+                                        borderColor: colors[dataChunk],
                                         tension: 0,
                                     };
                                 } else {
@@ -73,7 +78,7 @@ const Chart: FC = () => {
                         onClick: (evt, activeElement: any) => {
                             let pointData =
                                 activeElement[0].element?.$context.raw;
-                            navigate('/details', {
+                            navigate("/details", {
                                 state: pointData,
                             });
                         },
@@ -83,8 +88,8 @@ const Chart: FC = () => {
                             },
                         },
                         parsing: {
-                            xAxisKey: 'month',
-                            yAxisKey: 'lessons',
+                            xAxisKey: "month",
+                            yAxisKey: "lessons",
                         },
                         scales: {
                             y: {

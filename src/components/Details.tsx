@@ -2,8 +2,10 @@ import React, { FC } from "react";
 import { useLocation, Link } from "react-router-dom";
 import "../styles/details.css";
 import backIcon from "../assets/back.png";
+import { Lessons } from "../types";
+
 const Details: FC = () => {
-    const { state }: any = useLocation();
+    const { state }: Lessons | any = useLocation();
     return (
         <div className="details__data__container">
             <Link
