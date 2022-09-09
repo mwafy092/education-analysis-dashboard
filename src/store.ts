@@ -12,4 +12,13 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
+declare global {
+  interface Window {
+    store: typeof store
+    Cypress: any
+  }
+}
+if (window.Cypress) {
+  window.store = store
+}
 export { store }
