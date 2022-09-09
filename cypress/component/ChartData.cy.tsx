@@ -26,5 +26,34 @@ describe('Header.cy.ts', () => {
           }),
         )
       })
+
+    cy.wait(2000)
+    // test dispatch store with wrong country
+    cy.window()
+      .its('store')
+      .then((state) => {
+        store.dispatch(getLessonsData())
+        store.dispatch(
+          setLocationDataAction({
+            countryItem: 'Delta',
+            campItem: 'Omaka',
+            schoolItem: 'Show All',
+          }),
+        )
+      })
+    cy.wait(2000)
+    // test dispatch store with wrong Camp
+    cy.window()
+      .its('store')
+      .then((state) => {
+        store.dispatch(getLessonsData())
+        store.dispatch(
+          setLocationDataAction({
+            countryItem: 'Egypt',
+            campItem: 'Delta',
+            schoolItem: 'Show All',
+          }),
+        )
+      })
   })
 })
