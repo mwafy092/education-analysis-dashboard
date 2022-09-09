@@ -64,7 +64,10 @@ const lessonsSlice = createSlice({
       state.camp = action.payload.campItem
       state.school = action.payload.schoolItem
     },
-    setLocationDataByVoiceAction: (state: InitialStateType, action: any) => {
+    setLocationDataByVoiceAction: (
+      state: InitialStateType,
+      action: { type: string; payload: { countryItem: string; campItem: string } },
+    ) => {
       state.countryByVoice = action.payload.countryItem
       state.campByVoice = action.payload.campItem
     },
