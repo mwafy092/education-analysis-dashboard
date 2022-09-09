@@ -48,9 +48,20 @@ body {
   color: #000;
 }
 
-.popup__container img {
+.close__btn__popup {
   position: absolute;
   right: -12px;
   top: -12px;
   cursor: pointer;
+}
+
+.robot__container {
+  display: flex;
+  gap: 10px;
+}
+.robot__quote {
+}
+.robot__icon {
+  bottom: -20px;
+  left: 20px;
 }

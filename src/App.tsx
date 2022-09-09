@@ -11,6 +11,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import { StateTypes } from 'types'
 import alanBtn from '@alan-ai/alan-sdk-web'
 import closeBtn from 'assets/close.png'
+import robotIcon from 'assets/robot.png'
 const Home = () => {
   return (
     <>
@@ -64,11 +65,18 @@ const App = () => {
             onClick={() => {
               setShowPop(false)
             }}
+            className='close__btn__popup'
           />
-          <p>Now you can use your voice to select countries and camps!</p>
-          <p>
-            Just try <i>Select country</i> or <i>how many camps</i> orders
-          </p>
+          <div className='robot__container'>
+            <img src={robotIcon} alt='robot icon' width={50} className='robot__icon' />
+            <div className='robot__quote'>
+              <p>Now you can use your voice to select countries and camps!</p>
+              <p>
+                Just try to say: <i>Select country</i> or <i>how many camps</i>
+              </p>
+              <p>We have many more commands! just discover!</p>
+            </div>
+          </div>
         </div>
       )}
       <Routes>
