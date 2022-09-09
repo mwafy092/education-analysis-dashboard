@@ -10,7 +10,7 @@ import { Details } from 'components/Details'
 import ClipLoader from 'react-spinners/ClipLoader'
 import { StateTypes } from 'types'
 import alanBtn from '@alan-ai/alan-sdk-web'
-
+import closeBtn from 'assets/close.png'
 const Home = () => {
   return (
     <>
@@ -23,6 +23,7 @@ const Home = () => {
 const App = () => {
   const [countryByVoice, setCountryByVoice] = useState('')
   const [campByVoice, setCampByVoice] = useState('')
+  const [showPop, setShowPop] = useState(true)
   const { isLoading } = useSelector((state: StateTypes) => state.lessons)
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
@@ -52,6 +53,22 @@ const App = () => {
       {isLoading && (
         <div className='loading__container'>
           <ClipLoader loading={isLoading} color='purple' size={70} />
+        </div>
+      )}
+      {showPop && (
+        <div className='popup__container'>
+          <img
+            src={closeBtn}
+            alt='close btn'
+            width={30}
+            onClick={() => {
+              setShowPop(false)
+            }}
+          />
+          <p>Now you can use your voice to select countries and camps!</p>
+          <p>
+            Just try <i>Select country</i> or <i>how many camps</i> orders
+          </p>
         </div>
       )}
       <Routes>

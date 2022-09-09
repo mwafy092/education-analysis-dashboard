@@ -26,3 +26,31 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.popup__container {
+  position: absolute;
+  background-color: orange;
+  color: #fff;
+  bottom: 40px;
+  left: 0;
+  border-radius: 0 5px 5px 0;
+  padding: 10px 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.popup__container p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.popup__container p i {
+  font-weight: 600;
+  color: #000;
+}
+
+.popup__container img {
+  position: absolute;
+  right: -12px;
+  top: -12px;
+  cursor: pointer;
+}
