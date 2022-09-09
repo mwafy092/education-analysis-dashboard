@@ -3,8 +3,8 @@ import { Provider } from 'react-redux'
 import { store } from '../../src/store'
 import { BrowserRouter } from 'react-router-dom'
 
-describe('Header.cy.ts', () => {
-  it('playground', () => {
+describe('Test details component', () => {
+  it('Details', () => {
     cy.mount(
       <Provider store={store}>
         <BrowserRouter>

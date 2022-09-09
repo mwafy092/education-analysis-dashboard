@@ -8,7 +8,7 @@ import {
   addDataToChartAction,
 } from '../../src/reducers/lessons'
 
-describe('Header.cy.ts', () => {
+describe('Test chart component', () => {
   it('playground', () => {
     cy.mount(
       <Provider store={store}>

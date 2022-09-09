@@ -1,8 +1,8 @@
 import { Header } from '../../src/components/Header'
 import { Provider } from 'react-redux'
 import { store } from '../../src/store'
-describe('Header.cy.ts', () => {
-  it('playground', () => {
+describe('Test header component', () => {
+  it('Playground', () => {
     cy.mount(
       <Provider store={store}>
         <Header />

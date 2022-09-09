@@ -4,7 +4,7 @@ import { store } from '../../src/store'
 import { BrowserRouter } from 'react-router-dom'
 import { getLessonsData, setLocationDataAction } from '../../src/reducers/lessons'
 
-describe('Header.cy.ts', () => {
+describe('Test chart data component', () => {
   it('playground', () => {
     cy.mount(
       <Provider store={store}>

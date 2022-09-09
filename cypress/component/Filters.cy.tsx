@@ -1,17 +1,16 @@
-import { Dashboard } from '../../src/components/Dashboard'
+import { Filters } from '../../src/components/Filters'
 import { Provider } from 'react-redux'
 import { store } from '../../src/store'
 import { BrowserRouter } from 'react-router-dom'
 
-describe('Test dashboard component', () => {
-  it('playground', () => {
+describe('Test filters component', () => {
+  it('Playground', () => {
     cy.mount(
       <Provider store={store}>
         <BrowserRouter>
-          <Dashboard />
+          <Filters />
         </BrowserRouter>
       </Provider>,
     )
-    cy.contains(/Please select country, camp and school to view data/).should('be.visible')
   })
 })
