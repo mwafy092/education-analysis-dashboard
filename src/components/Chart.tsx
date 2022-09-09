@@ -41,9 +41,7 @@ const Chart: FC = () => {
 
     setLineChartData(_CHART_DATA)
   }, [camp, chartData, country, educationData])
-  console.log(country)
-  console.log(camp)
-  console.log(chartData)
+
   return (
     <div className='chart__container'>
       <h3>No of lessons</h3>
