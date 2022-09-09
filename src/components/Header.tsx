@@ -32,6 +32,7 @@ const Header: FC = () => {
           src={darkModeState ? lightIcon : darkIcon}
           alt='mode icon'
           className='mode__switcher'
+          id='modeSwitcher'
           onClick={() => {
             dispatch(setDarkMode())
           }}
