@@ -16,9 +16,13 @@ const Filters: FC = () => {
     (store: StateTypes) => store.lessons,
   )
 
+  // set default school before any interaction
   useEffect(() => {
-    setSelectedSchool('Show All')
+    if (localStorage.getItem('savedFilteredData') === null) {
+      setSelectedSchool('Show All')
+    }
   }, [])
+
   // use effect section for fetching data from store
   useEffect(() => {
     const countries = []
