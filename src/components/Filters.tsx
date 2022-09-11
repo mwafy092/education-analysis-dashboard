@@ -161,10 +161,10 @@ const Filters: FC = () => {
         >
           <option>Select School</option>
           {schools?.map((school: string) => {
-            if (school === savedData?.school) {
+            if (school === savedData?.school || school === selectedSchool) {
               return (
-                <option key={school} value={savedData?.school} selected>
-                  {savedData?.school}
+                <option key={school} value={savedData?.school || selectedSchool} selected>
+                  {savedData?.school || selectedSchool}
                 </option>
               )
             } else {
